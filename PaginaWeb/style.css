@@ -15,7 +15,7 @@ body {
 
 .navbar .title {
     font-size: 24px;
-    margin-right: auto;
+    margin-right: 20px;
 }
 
 .menu {
@@ -23,6 +23,8 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-grow: 1;
+    justify-content: space-around;
 }
 
 .menu li {
