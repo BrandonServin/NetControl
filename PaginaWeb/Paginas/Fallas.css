@@ -11,7 +11,6 @@ body {
     background-color: #333;
     padding: 10px;
     color: white;
-    justify-content: space-between; /* Distribute space between items */
 }
 
 .navbar .logo {
@@ -30,7 +29,7 @@ body {
     padding: 0;
     display: flex;
     flex-grow: 1;
-    justify-content: space-around; /* Distribute menu items evenly */
+    justify-content: space-around;
 }
 
 .menu li {
@@ -51,5 +50,3 @@ body {
 .menu li a:hover {
     background-color: #555;
 }
-
-/* Eliminar las reglas relacionadas con el dropdown */
