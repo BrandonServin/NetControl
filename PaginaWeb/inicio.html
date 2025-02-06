@@ -56,7 +56,49 @@
             </div>
         </nav>
     </header>
+
     
+    <h1>Bienvenido a la página de Inicio</h1>
+    <button onclick="iniciarPrueba()">Iniciar Prueba</button>
+    <div id="resultados">
+        <p>Velocidad de descarga: <span id="download">-</span> Mbps</p>
+        <p>Velocidad de subida: <span id="upload">-</span> Mbps</p>
+        <p>Ping: <span id="ping">-</span> ms</p>
+    </div>
+    <script>
+        function iniciarPrueba() {
+            // Limpia los resultados anteriores
+            document.getElementById('download').textContent = '...';
+            document.getElementById('upload').textContent = '...';
+            document.getElementById('ping').textContent = '...';
+
+            // Realiza la solicitud al servidor Flask
+            fetch('http://127.0.0.1:5000/iniciar_prueba?t=' + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        // Muestra el error en la consola y en la página
+                        console.error('Error del servidor:', data.error);
+                        alert('Error: ' + data.error);
+                    } else {
+                        // Muestra los resultados en la página
+                        document.getElementById('download').textContent = data.download;
+                        document.getElementById('upload').textContent = data.upload;
+                        document.getElementById('ping').textContent = data.ping;
+                    }
+                })
+                .catch(error => {
+                    // Muestra errores de red o de la solicitud
+                    console.error('Error:', error);
+                    alert('Error al conectar con el servidor. Verifica la consola para más detalles.');
+                });
+        }
+    </script>
 </body>
 
 </html>
