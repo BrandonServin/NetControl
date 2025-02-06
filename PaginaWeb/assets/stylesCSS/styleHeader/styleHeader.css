@@ -50,5 +50,30 @@ body {
 }
 
 .menu li a:hover {
+    color: white;
     background-color: #555;
+}
+
+.staticHover{
+    color: white;
+    background-color: #555;
+}
+
+.navbar-toggler:focus {
+    border: 3px !important;
+    box-shadow: 0px 0px 5px rgb(255, 255, 255) !important;
+}
+
+.navbar-toggler {
+    border: none; /* Quita el borde del botón */
+}
+
+.navbar-toggler-icon {
+    filter: invert(1); /* Hace que el icono sea blanco */
+}
+
+.navbar-toggler {
+    position: absolute;
+    top: 10px; /* Ajusta según tu diseño */
+    right: 20px; /* Ajusta según tu diseño */
 }
