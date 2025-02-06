@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1A1A1A !important;
+}
+
+h1{
+    color: white;
+}
+
+.btn{
+    background-color: #2A2A2A !important;
+}
+
+/* Estilo para elementos con la clase .card */
+.card {
+    width: 780px;
+    height: 680px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;  /* Evita que el contenido haga crecer la tarjeta */
+    white-space: normal; /* Permite saltos de línea si es necesario */
+    word-wrap: break-word;
+}
+
+/* Estilo para elementos con la clase .btn-color-card */
+.btn-color-card {
+    background-color: #2A2A2A;
+    border-color: #555;
+    color: white !important;
+}
+
+/* Estilo para el estado hover de los botones con la clase .btn-color-card */
+.btn-color-card:hover {
+    color: white;
+    background-color: #555 !important;
+}
+
+.bordeContLibros { 
+    border-top: 2px solid rgb(255, 255, 255);
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+/* Estilos para animaciones */
+.animacion {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.animacion.visible {
+    opacity: 1;
+}

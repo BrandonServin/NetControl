@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú NETControl</title>
+    <link rel="stylesheet" href="assets/stylesCSS/styleInicio/styleInicio.css">
     <link rel="stylesheet" href="assets/stylesCSS/styleHeader/styleHeader.css">
     <link rel="stylesheet" href="assets/bootstrap-5.2.3/css/bootstrap.min.css">
     <script src="assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/animCargar.js"></script>
 </head>
 
 <body>
@@ -15,11 +17,10 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
             <div class="container-fluid">
-                <div class = "d-flex">
+                <div class="d-flex">
                     <!-- Botón de pantalla pequeña -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -57,14 +58,69 @@
         </nav>
     </header>
 
-    
-    <h1>Bienvenido a la página de Inicio</h1>
+    <!-- Contenedor principal con una clase personalizada para animación -->
+    <main class="container animacion bordeContLibros">
+        <div class="ms-auto justify-content-center text-center my-4">
+            <h1>Bienvenido a la página de Inicio</h1>
+        </div>
+
+        <div class="row g-3 align-items-stretch">
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">ANCHO DE BANDA</h5>
+                        <p class="card-text">40Mbp</p>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">ESTADO DE LA RED</h5>
+                        <p class="card-text text-success">ÓPTIMA</p>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">MANTENIMIENTO</h5>
+                        <p class="card-text text-danger">5 FALLAS/REPORTES</p>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="producto4" class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
+                        <p class="card-text"><strong>8 Conectados</strong></p>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+
+
+    <!--
     <button onclick="iniciarPrueba()">Iniciar Prueba</button>
     <div id="resultados">
         <p>Velocidad de descarga: <span id="download">-</span> Mbps</p>
         <p>Velocidad de subida: <span id="upload">-</span> Mbps</p>
         <p>Ping: <span id="ping">-</span> ms</p>
     </div>
+
+    
+    
     <script>
         function iniciarPrueba() {
             // Limpia los resultados anteriores
@@ -99,6 +155,7 @@
                 });
         }
     </script>
+    -->
 </body>
 
 </html>
