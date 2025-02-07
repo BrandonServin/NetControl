@@ -69,8 +69,10 @@
                 <div class="card">
                     <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-titulo">ANCHO DE BANDA</h5>
-                        <p class="card-text">40Mbp</p>
-                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                        <p class="card-text">Velocidad de descarga: <span id="download">-</span> Mbps</p>
+                        <p class="card-text">Velocidad de subida: <span id="upload">-</span> Mbps</p>
+                        <p class="card-text">Ping: <span id="ping">-</span> ms</p>
+                        <button class="btn btn-primary mt-auto" onclick="iniciarPrueba()">Iniciar Prueba</button>
                     </div>
                 </div>
             </div>
@@ -107,20 +109,6 @@
         </div>
     </main>
 
-
-
-
-
-    <!--
-    <button onclick="iniciarPrueba()">Iniciar Prueba</button>
-    <div id="resultados">
-        <p>Velocidad de descarga: <span id="download">-</span> Mbps</p>
-        <p>Velocidad de subida: <span id="upload">-</span> Mbps</p>
-        <p>Ping: <span id="ping">-</span> ms</p>
-    </div>
-
-    
-    
     <script>
         function iniciarPrueba() {
             // Limpia los resultados anteriores
@@ -155,7 +143,6 @@
                 });
         }
     </script>
-    -->
 </body>
 
 </html>

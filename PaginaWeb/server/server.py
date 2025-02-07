@@ -1,3 +1,4 @@
+# filepath: /C:/Users/Rafael Saucedo/Documents/GitHub/NetControl/PaginaWeb/server/server.py
 from flask import Flask, jsonify
 from flask_cors import CORS
 import speedtest
