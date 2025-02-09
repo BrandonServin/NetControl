@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fallas</title>
     <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/styleFallas/styleVenModal.css">
     <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/stylesCSS/styleFallas/styleFallas.css">
     <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/scripts/venModal.js"></script>
 </head>
 
 <body>
@@ -61,43 +63,155 @@
             <h1>Reporte de fallas</h1>
         </div>
 
-        <div class="container mt-4">
-            <table class="table table-striped table-bordered table-light">
-                <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Titulo</th>
-                        <th>Prioridad</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Conexion lenta</td>
-                        <td>Alta</td>
-                        <td>Revision</td>
-                        <td>03/02/2025</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Desconexion</td>
-                        <td>Media</td>
-                        <td>Reportada</td>
-                        <td>03/02/2025</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Baja covertura</td>
-                        <td>Baja</td>
-                        <td>Sin revisar</td>
-                        <td>03/02/2025</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="d-flex container mt-4 table-responsive">
+                <table class="table table-striped table-bordered table-light">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Titulo</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Conexion lenta</td>
+                            <td>Alta</td>
+                            <td>Revision</td>
+                            <td>03/02/2025</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Desconexion</td>
+                            <td>Media</td>
+                            <td>Reportada</td>
+                            <td>03/02/2025</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Baja covertura</td>
+                            <td>Baja</td>
+                            <td>Sin revisar</td>
+                            <td>03/02/2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+
+        <!-- Boton con display flex y contenido justificado al final -->
+        <div class="d-flex justify-content-end">
+            <button onclick="abrirModal('modal1')">Crear Reporte</button>
+        </div>
+
+
+        <!-- Div con id modal y la clase personalizada modal-->
+        <div id="modal1" class="modal textForm">
+
+            <!-- Clase personalizada para mostrar la informacion-->
+            <div class="modal-content">
+                <!-- Elemento para cerrar la ventana modal una x-->
+                <span class="close" onclick="cerrarModal('modal1')">&times;</span>
+
+                <!-- Titulo maquetacion-->
+                <h2>Reporta la falla</h2>
+
+                <form class="contact-form col-md-12" id="send">
+                    <div class="d-flex mt-2">
+                        <h3>Titulo: </h3>
+                        <input type="text" name="titulo" placeholder="Titulo">
+                    </div>
+
+                    <div class="d-flex mt-2">
+                        <h3>Prioridad: </h3>
+                        <!-- <input type="text" name="prioridad" placeholder="Prioridad"> -->
+                        <select name="prioridad">
+                            <option value="seleccionar">Seleccionar</option>
+                            <option value="baja">Baja</option>
+                            <option value="media">Media</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex mt-2">
+                        <h3>Estado: </h3>
+                        <!-- <input type="text" name="estado" placeholder="Estado"> -->
+                        <select name="estado">
+                            <option value="seleccionar">Seleccionar</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="en-progreso">En progreso</option>
+                            <option value="completado">Completado</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex mt-2">
+                        <h3>Fecha: </h3>
+                        <input type="date" name="fecha" placeholder="Fecha">
+                    </div>
+
+
+                    <!-- Contenedor flexbox para alinear el botón de envío a la derecha -->
+                    <div class="d-flex justify-content-end mt-1">
+                        <button type="submit" id="reportarBtn">Reportar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 </body>
+
+<script>
+        // Función para validar el formulario
+        function validarFormulario() {
+        const titulo = document.querySelector("input[name='titulo']").value;
+        const prioridad = document.querySelector("select[name='prioridad']").value;
+        const estado = document.querySelector("select[name='estado']").value;
+        const fecha = document.querySelector("input[name='fecha']").value;
+
+        const botonEnviar = document.getElementById("reportarBtn");
+
+        if (estado && prioridad !== "seleccionar" && titulo.trim() !== "" && fecha !== "") {
+            botonEnviar.disabled = false; 
+        } else {
+            botonEnviar.disabled = true; 
+        }
+    }
+
+    document.querySelectorAll("input, select").forEach(input => {
+        input.addEventListener("input", validarFormulario);
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        validarFormulario();
+    });
+    
+    document.getElementById("send").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evitar recarga de la página
+    
+        const formData = new FormData(event.target);
+        const data = {
+            titulo: formData.get("titulo"),
+            prioridad: formData.get("prioridad"),
+            estado: formData.get("estado"),
+            fecha: formData.get("fecha")
+        };
+    
+        fetch("http://127.0.0.1:5000/reportes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            alert(result.mensaje);
+            event.target.reset();
+        })
+        .catch(error => console.error("Error:", error));
+    });
+    </script>
 
 </html>
