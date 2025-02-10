@@ -6,7 +6,7 @@
     <title>Ajustes</title>
     <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
     <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/stylesCSS/dark-mode.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/styleAjustes/styleAjustes.css">
     <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
     <style>
         .config-box {
@@ -61,7 +61,7 @@
                             <a class="nav-link" href="Fallas.html">Fallas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Dispositivos.html">Dispositivos</a>
+                            <a class="nav-link, href="Dispositivos.html">Dispositivos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="Inventario.html">Inventario</a>
@@ -84,12 +84,12 @@
             <form>
                 <div class="mb-3">
                     <label for="ssid" class="form-label">Nombre de la red (SSID):</label>
-                    <input type="text" class="form-control" id="ssid" value="{{ ssid }}" readonly>
+                    <input type="text" class="form-control" id="ssid" value="Nombre de la red" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña:</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password" value="{{ password }}" readonly>
+                        <input type="password" class="form-control" id="password" value="***************">
                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">Mostrar</button>
                     </div>
                 </div>
@@ -130,6 +130,7 @@
     </main>
 
     <script>
+        // Función para mostrar/ocultar la contraseña
         document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordField = document.getElementById('password');
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -137,29 +138,41 @@
             this.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
         });
 
-        // Obtener los detalles de la red WiFi desde el servidor Flask
-        window.onload = function() {
-            fetch('/wifi-details')
-                .then(response => response.json())
-                .then(data => {
+        // Obtener el SSID y la contraseña de la red
+        fetch('/get_wifi_info')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    // Actualizar el campo SSID
                     document.getElementById('ssid').value = data.ssid;
+
+                    // Actualizar el campo de contraseña
                     document.getElementById('password').value = data.password;
+                }
+            })
+            .catch(error => console.error('Error:', error));
 
-                    // Simulación de la detección de la banda y el tipo de cifrado de la red conectada
-                    const band24 = document.getElementById('band24');
-                    const band5 = document.getElementById('band5');
-                    const encryptionType = document.getElementById('encryptionType');
+        // Simulación de la detección de la banda y el tipo de cifrado de la red conectada
+        window.onload = function() {
+            const ssid = document.getElementById('ssid').value;
+            const band24 = document.getElementById('band24');
+            const band5 = document.getElementById('band5');
+            const encryptionType = document.getElementById('encryptionType');
 
-                    if (data.ssid.includes('5G')) {
-                        band5.checked = true;
-                    } else {
-                        band24.checked = true;
-                    }
+            // Aquí puedes agregar la lógica para detectar la banda y el tipo de cifrado de la red conectada
+            // Por ejemplo, si la red es de 5 GHz, marcar la casilla correspondiente
+            if (ssid.includes('5G')) {
+                band5.checked = true;
+            } else {
+                band24.checked = true;
+            }
 
-                    // Simulación del tipo de cifrado de la red conectada
-                    const currentEncryption = 'wpa2'; // Ejemplo: 'wpa2' o 'wpa3'
-                    encryptionType.value = currentEncryption;
-                });
+            // Simulación del tipo de cifrado de la red conectada
+            // Puedes reemplazar esta lógica con la detección real del tipo de cifrado
+            const currentEncryption = 'wpa2'; // Ejemplo: 'wpa2' o 'wpa3'
+            encryptionType.value = currentEncryption;
         };
     </script>
 </body>
