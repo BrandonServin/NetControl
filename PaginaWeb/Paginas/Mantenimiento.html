@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mantenimiento</title>
     <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
     <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/styleMantenimiento/styleMantenimiento.css">
     <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .config-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .config-box h2 {
+            margin-bottom: 20px;
+        }
+        .config-box .form-check {
+            margin-bottom: 10px;
+        }
+        .config-box .device-list {
+            margin-top: 20px;
+        }
+        .config-box .device-list .device-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-
-<body>
+<body class="dark-mode">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
             <div class="container-fluid">
                 <div class="d-flex">
                     <!-- Botón de pantalla pequeña -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <!-- Logotipo y título -->
-                    <a class="navbar-brand d-flex align-items-center" href="../inicio.html">                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
+                    <a class="navbar-brand d-flex align-items-center" href="../inicio.html">
+                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
                         <span class="title ms-2">NETControl</span>
                     </a>
                 </div>
@@ -53,7 +77,52 @@
             </div>
         </nav>
     </header>
-    <h1>Bienvenido a la página de Mantenimiento</h1>
-</body>
 
+    <main class="container animacion lineaSeparadora">
+        <div class="config-box mt-5">
+            <h2>Planes de prevención y corrección</h2>
+            <div class="container mt-4">
+                <table class="table table-striped table-bordered table-light">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mantenimiento Preventivo</td>
+                            <td>Preventivo</td>
+                            <td>Activo</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">Detalles</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Corrección de Fallas</td>
+                            <td>Correctivo</td>
+                            <td>En Proceso</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">Detalles</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Actualización de Software</td>
+                            <td>Preventivo</td>
+                            <td>Completado</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">Detalles</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
 </html>
