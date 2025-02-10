@@ -6,14 +6,37 @@
     <title>Ajustes</title>
     <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
     <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/dark-mode.css">
     <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .config-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .config-box h2 {
+            margin-bottom: 20px;
+        }
+        .config-box .form-check {
+            margin-bottom: 10px;
+        }
+        .config-box .device-list {
+            margin-top: 20px;
+        }
+        .config-box .device-list .device-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-<body>
-
+<body class="dark-mode">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
             <div class="container-fluid">
-                <div class = "d-flex">
+                <div class="d-flex">
                     <!-- Botón de pantalla pequeña -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -22,7 +45,8 @@
                     </button>
 
                     <!-- Logotipo y título -->
-                    <a class="navbar-brand d-flex align-items-center" href="../inicio.html">                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
+                    <a class="navbar-brand d-flex align-items-center" href="../inicio.html">
+                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
                         <span class="title ms-2">NETControl</span>
                     </a>
                 </div>
@@ -54,6 +78,89 @@
         </nav>
     </header>
 
-    <h1>Bienvenido a la página de Ajustes</h1>
+    <main class="container animacion lineaSeparadora">
+        <div class="config-box mt-5">
+            <h2>Configuraciones de la red</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="ssid" class="form-label">Nombre de la red (SSID):</label>
+                    <input type="text" class="form-control" id="ssid" value="{{ ssid }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" value="{{ password }}" readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">Mostrar</button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Banda:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="band24" disabled>
+                        <label class="form-check-label" for="band24">2.4 GHz</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="band5" disabled>
+                        <label class="form-check-label" for="band5">5 GHz</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tipo de cifrado:</label>
+                    <select class="form-select" id="encryptionType" disabled>
+                        <option value="wpa2">WPA2</option>
+                        <option value="wpa3">WPA3</option>
+                    </select>
+                </div>
+
+                <h3>Lista de dispositivos confiables</h3>
+                <div class="device-list">
+                    <div class="device-item">
+                        <span>MAC del dispositivo (Mi PC)</span>
+                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                    </div>
+                    <div class="device-item">
+                        <span>MAC del dispositivo (Smartphone)</span>
+                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Guardar configuración</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
+        });
+
+        // Obtener los detalles de la red WiFi desde el servidor Flask
+        window.onload = function() {
+            fetch('/wifi-details')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ssid').value = data.ssid;
+                    document.getElementById('password').value = data.password;
+
+                    // Simulación de la detección de la banda y el tipo de cifrado de la red conectada
+                    const band24 = document.getElementById('band24');
+                    const band5 = document.getElementById('band5');
+                    const encryptionType = document.getElementById('encryptionType');
+
+                    if (data.ssid.includes('5G')) {
+                        band5.checked = true;
+                    } else {
+                        band24.checked = true;
+                    }
+
+                    // Simulación del tipo de cifrado de la red conectada
+                    const currentEncryption = 'wpa2'; // Ejemplo: 'wpa2' o 'wpa3'
+                    encryptionType.value = currentEncryption;
+                });
+        };
+    </script>
 </body>
 </html>
