@@ -6,6 +6,7 @@
     <title>Inventario</title>
     <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
     <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/styleInventario/styleInventario.css">
     <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -21,7 +22,8 @@
                     </button>
 
                     <!-- Logotipo y título -->
-                    <a class="navbar-brand d-flex align-items-center" href="../inicio.html">                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
+                    <a class="navbar-brand d-flex align-items-center" href="../inicio.html">
+                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
                         <span class="title ms-2">NETControl</span>
                     </a>
                 </div>
@@ -52,6 +54,52 @@
             </div>
         </nav>
     </header>
-    <h1>Bienvenido a la página de Inventario</h1>
+    
+    <main class="container animacion lineaSeparadora">
+        <div class="ms-auto justify-content-center text-center my-4">
+            <h1>Inventario</h1>
+        </div>
+
+        <div class="container mt-4">
+            <table class="table table-striped table-bordered table-light">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Modelo</th>
+                        <th>No. Serie</th>
+                        <th>Ubicación</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Router</td>
+                        <td>XYZ123</td>
+                        <td>SN123456</td>
+                        <td>Sala de servidores</td>
+                        <td>Activo</td>
+                        <td><button class="btn btn-primary btn-sm">Detalles</button></td>
+                    </tr>
+                    <tr>
+                        <td>Switch</td>
+                        <td>ABC456</td>
+                        <td>SN789012</td>
+                        <td>Oficina principal</td>
+                        <td>Inactivo</td>
+                        <td><button class="btn btn-primary btn-sm">Detalles</button></td>
+                    </tr>
+                    <tr>
+                        <td>Access Point</td>
+                        <td>DEF789</td>
+                        <td>SN345678</td>
+                        <td>Pasillo</td>
+                        <td>Activo</td>
+                        <td><button class="btn btn-primary btn-sm">Detalles</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>
