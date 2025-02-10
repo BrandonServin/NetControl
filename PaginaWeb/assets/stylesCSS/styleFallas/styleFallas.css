@@ -61,3 +61,33 @@ select {
     color: #aaa;
     cursor: not-allowed;
 }
+
+.search-bar {
+    background-color: rgb(232, 230, 229);
+    border: 2px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+/* Clase para personalizar el icono de buscar */
+.icon-buscar {
+    background-image: url('../../../img/svg1_buscar.svg');
+    width: 35px !important;
+    height: 35px !important;
+    color: white !important;
+}

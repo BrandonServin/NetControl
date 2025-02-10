@@ -63,41 +63,57 @@
             <h1>Reporte de fallas</h1>
         </div>
 
+        <div class="d-flex align-items-center">
+            <input type="text" class="search-bar" placeholder="BUSCA POR: ID, TITULO, PRIORIDAD, ESTADO O FECHA"
+                aria-label="Search">
+            <button type="submit" class="ms-1">Limpiar</button>
+        </div>
+
         <div class="d-flex container mt-4 table-responsive">
-                <table class="table table-striped table-bordered table-light">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Titulo</th>
-                            <th>Prioridad</th>
-                            <th>Estado</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Conexion lenta</td>
-                            <td>Alta</td>
-                            <td>Revision</td>
-                            <td>03/02/2025</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Desconexion</td>
-                            <td>Media</td>
-                            <td>Reportada</td>
-                            <td>03/02/2025</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Baja covertura</td>
-                            <td>Baja</td>
-                            <td>Sin revisar</td>
-                            <td>03/02/2025</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <table class="table table-striped table-bordered table-light" id="tablaReportes">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Prioridad</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Conexion lenta</td>
+                        <td>Alta</td>
+                        <td>Revision</td>
+                        <td>03/02/2025</td>
+                        <td><button class="btn btn-primary btn-sm">Avanzar</button>
+                            <button class="btn btn-danger btn-sm">Cancelar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Desconexion</td>
+                        <td>Media</td>
+                        <td>Reportada</td>
+                        <td>03/02/2025</td>
+                        <td><button class="btn btn-primary btn-sm">Avanzar</button>
+                            <button class="btn btn-danger btn-sm">Cancelar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Baja covertura</td>
+                        <td>Baja</td>
+                        <td>Sin revisar</td>
+                        <td>03/02/2025</td>
+                        <td><button class="btn btn-primary btn-sm">Avanzar</button>
+                            <button class="btn btn-danger btn-sm">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- Boton con display flex y contenido justificado al final -->
@@ -163,8 +179,8 @@
 </body>
 
 <script>
-        // Función para validar el formulario
-        function validarFormulario() {
+    // Función para validar el formulario
+    function validarFormulario() {
         const titulo = document.querySelector("input[name='titulo']").value;
         const prioridad = document.querySelector("select[name='prioridad']").value;
         const estado = document.querySelector("select[name='estado']").value;
@@ -173,9 +189,9 @@
         const botonEnviar = document.getElementById("reportarBtn");
 
         if (estado && prioridad !== "seleccionar" && titulo.trim() !== "" && fecha !== "") {
-            botonEnviar.disabled = false; 
+            botonEnviar.disabled = false;
         } else {
-            botonEnviar.disabled = true; 
+            botonEnviar.disabled = true;
         }
     }
 
@@ -183,13 +199,13 @@
         input.addEventListener("input", validarFormulario);
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         validarFormulario();
     });
-    
-    document.getElementById("send").addEventListener("submit", function(event) {
+
+    document.getElementById("send").addEventListener("submit", function (event) {
         event.preventDefault(); // Evitar recarga de la página
-    
+
         const formData = new FormData(event.target);
         const data = {
             titulo: formData.get("titulo"),
@@ -197,7 +213,7 @@
             estado: formData.get("estado"),
             fecha: formData.get("fecha")
         };
-    
+
         fetch("http://127.0.0.1:5000/reportes", {
             method: "POST",
             headers: {
@@ -205,13 +221,126 @@
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(result => {
-            alert(result.mensaje);
-            event.target.reset();
-        })
-        .catch(error => console.error("Error:", error));
+            .then(response => response.json())
+            .then(result => {
+                alert(result.mensaje);
+                event.target.reset();
+            })
+            .catch(error => console.error("Error:", error));
     });
-    </script>
+
+
+    // Función para cargar los reportes en la tabla
+    function cargarReportes() {
+        fetch("http://127.0.0.1:5000/reportes")  // URL de la ruta de reportes
+            .then(response => response.json())  // Convertir la respuesta a JSON
+            .then(reportes => {
+                const tbody = document.querySelector("#tablaReportes tbody");
+                tbody.innerHTML = "";  // Limpiar la tabla antes de agregar nuevos datos
+
+                reportes.forEach(reporte => {
+                    const tr = document.createElement("tr");
+
+                    tr.innerHTML = `
+                    <td>${reporte.id}</td>
+                    <td>${reporte.titulo}</td>
+                    <td>${reporte.prioridad}</td>
+                    <td class="estado-${reporte.id}">${reporte.estado}</td>
+                    <td>${reporte.fecha}</td>
+                    <td><button class="btn btn-primary btn-sm" onclick="avanzarEstado(${reporte.id}, '${reporte.estado}')">Avanzar</button>
+                        <button class="btn btn-danger btn-sm" onclick="cancelarEstado(${reporte.id})">Cancelar</button>
+                    </td>
+                    
+                `;
+                    tr.setAttribute('data-id', reporte.id);
+                    tbody.appendChild(tr);  // Agregar la fila a la tabla
+                });
+            })
+            .catch(error => console.error("Error al cargar los reportes:", error));
+    }
+
+    // Funcion para avnazar mi estado con el boton
+    function avanzarEstado(id, estadoActual) {
+        let nuevoEstado;
+        if (estadoActual === "pendiente") {
+            nuevoEstado = "en-progreso";
+        } else if (estadoActual === "en-progreso") {
+            nuevoEstado = "completado";
+        } else {
+            return;
+        }
+
+        actualizarEstado(id, nuevoEstado);
+    }
+
+    // Función para cancelar el estado
+    function cancelarEstado(id) {
+        actualizarEstado(id, "cancelado");
+        console.log("Si entro aqui");
+    }
+
+    // Función para actualizar el estado en la base de datos
+    function actualizarEstado(id, nuevoEstado) {
+        fetch(`http://127.0.0.1:5000/reportes/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ estado: nuevoEstado })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Estado actualizado:", data);
+                const fila = document.querySelector(`#tablaReportes tbody tr[data-id='${id}']`);
+
+                if (fila) {
+                    const celdaEstado = fila.querySelector(`.estado-${id}`);
+                    celdaEstado.textContent = nuevoEstado;  // Actualiza el estado
+                } else {
+                    console.log("No se encontró la fila para el reporte con ID:", id);
+                }
+            })
+            .catch(error => console.error("Error al actualizar el estado:", error));
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarReportes);
+
+    // Apartado que filtra la tabla y limpia el texto
+    document.querySelector(".search-bar").addEventListener("input", function () {
+        const terminoBusqueda = this.value.toLowerCase();
+        filtrarTabla(terminoBusqueda);
+    });
+
+    document.querySelector(".ms-1").addEventListener("click", function () {
+        const searchBar = document.querySelector(".search-bar");
+        searchBar.value = "";
+        filtrarTabla("");
+    });
+
+    function filtrarTabla(terminoBusqueda) {
+        const filas = document.querySelectorAll("#tablaReportes tbody tr");
+
+        filas.forEach(fila => {
+            const id = fila.children[0].textContent.toLowerCase();
+            const titulo = fila.children[1].textContent.toLowerCase();
+            const prioridad = fila.children[2].textContent.toLowerCase();
+            const estado = fila.children[3].textContent.toLowerCase();
+            const fecha = fila.children[4].textContent.toLowerCase();
+
+            if (
+                id.includes(terminoBusqueda) ||
+                titulo.includes(terminoBusqueda) ||
+                prioridad.includes(terminoBusqueda) ||
+                estado.includes(terminoBusqueda) ||
+                fecha.includes(terminoBusqueda)
+            ) {
+                fila.style.display = "";
+            } else {
+                fila.style.display = "none";
+            }
+        });
+    }
+    // Fin del apartado
+
+
+</script>
 
 </html>
