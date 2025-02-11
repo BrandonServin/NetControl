@@ -103,15 +103,4 @@ def ping_ip(ip):
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return result.returncode == 0
 
-@app.route('/api/dispositivos', methods=['GET'])
-def obtener_dispositivos():
-    ip_address, subnet_mask = get_network_info()
-    if ip_address and subnet_mask:
-        network_ip = calculate_network_ip(ip_address, subnet_mask)
-        devices = scan_network(network_ip)
-        return jsonify({'dispositivos_conectados': len(devices), 'ips': devices})
-    else:
-        return jsonify({'error': 'No se pudo detectar la red a la que estás conectado.'}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)

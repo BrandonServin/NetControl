@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from TotalDis import get_network_info, calculate_network_ip, scan_network
 from flask_cors import CORS
 import os
 import speedtest
@@ -94,6 +95,19 @@ def eliminar_inv(id):
     db.session.delete(inventario)
     db.session.commit()
     return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
+
+#mostramos la cantidad de dispositivos conectados
+
+@app.route('/api/dispositivos', methods=['GET'])
+def obtener_dispositivos():
+    ip_address, subnet_mask = get_network_info()
+    if ip_address and subnet_mask:
+        network_ip = calculate_network_ip(ip_address, subnet_mask)
+        devices = scan_network(network_ip)
+        return jsonify({'dispositivos_conectados': len(devices), 'ips': devices})
+    else:
+        return jsonify({'error': 'No se pudo detectar la red a la que estás conectado.'}), 500
+
 
 #- - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
 # Ruta para iniciar la prueba de speedtest
