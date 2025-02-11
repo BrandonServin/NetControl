@@ -25,9 +25,10 @@ class Inventario(db.Model):
     modelo = db.Column(db.String(40), nullable=False)
     noSerie = db.Column(db.String(40), nullable=False)
     ubicacion = db.Column(db.String(40), nullable=False)
+    estado = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return f'Reporte({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.ubicacion})'
+        return f'Reporte({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.ubicacion}, {self.estado})'
 
 # Crear la base de datos y las tablas
 if __name__ == '__main__':
