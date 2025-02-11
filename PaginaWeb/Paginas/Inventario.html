@@ -79,6 +79,7 @@
                         <th>Modelo</th>
                         <th>No. Serie</th>
                         <th>Ubicación</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -89,7 +90,11 @@
                         <td>XYZ123</td>
                         <td>SN123456</td>
                         <td>Sala de servidores</td>
-                        <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
+                        <td>Activo</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -97,7 +102,11 @@
                         <td>ABC456</td>
                         <td>SN789012</td>
                         <td>Oficina principal</td>
-                        <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
+                        <td>Inactivo</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>3</td>
@@ -105,7 +114,11 @@
                         <td>DEF789</td>
                         <td>SN345678</td>
                         <td>Pasillo</td>
-                        <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
+                        <td>Activo</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -144,10 +157,44 @@
                     </div>
 
                     <div class="d-flex mt-2">
-                        <h3>Ubicacion: </h3>
+                        <h3>Ubicación: </h3>
                         <input type="text" name="ubicacion" placeholder="Ubicacion">
                     </div>
 
+                    <div class="d-flex mt-2">
+                        <h3>Estado: </h3>
+                        <!-- <input type="text" name="estado" placeholder="Estado"> -->
+                        <select name="estado">
+                            <option value="inactivo">Inactivo</option>
+                            <option value="activo">Activo</option>
+                        </select>
+                    </div>
+
+                    <!-- Contenedor flexbox para alinear el botón de envío a la derecha -->
+                    <div class="d-flex justify-content-end mt-1">
+                        <button type="submit" id="agregarBtn">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Div con id modal y la clase personalizada modal-->
+        <div id="modal2" class="modal textForm">
+
+            <!-- Clase personalizada para mostrar la informacion-->
+            <div class="modal-content">
+                <!-- Elemento para cerrar la ventana modal una x-->
+                <span class="close" onclick="cerrarModal('modal1')">&times;</span>
+
+                <!-- Titulo maquetacion-->
+                <h2>Detalles</h2>
+
+                <form class="contact-form col-md-12" id="send">
+                    <div class="d-flex mt-2">
+                        <h3>Cantidad: </h3>
+                        <input type="text" name="nombre" placeholder="Nombre">
+                    </div>
 
                     <!-- Contenedor flexbox para alinear el botón de envío a la derecha -->
                     <div class="d-flex justify-content-end mt-1">
@@ -197,7 +244,8 @@
             nombre: formData.get("nombre"),
             modelo: formData.get("modelo"),
             noSerie: formData.get("noSerie"),
-            ubicacion: formData.get("ubicacion")
+            ubicacion: formData.get("ubicacion"),
+            estado: formData.get("estado")
         };
 
         fetch("http://127.0.0.1:5000/inventario", {
@@ -233,10 +281,11 @@
                     <td>${inv.modelo}</td>
                     <td> ${inv.noSerie}</td>
                     <td>${inv.ubicacion}</td>
+                     <td>${inv.estado}</td>
                     <td>
-                        <button class="btn btn-danger btn-sm" onclick="eliminarInventario(${inv.id})">Eliminar</button>
-                    </td>
-                    
+                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarInventario(${inv.id})">Eliminar</button>
+                    </td>  
                 `;
                     tbody.appendChild(tr);  // Agregar la fila a la tabla
                 });
@@ -282,13 +331,15 @@
             const modelo = fila.children[2].textContent.toLowerCase();
             const noSerie = fila.children[3].textContent.toLowerCase();
             const ubicacion = fila.children[4].textContent.toLowerCase();
+            const estado = fila.children[5].textContent.toLowerCase();
 
             if (
                 id.includes(terminoBusqueda) ||
                 nombre.includes(terminoBusqueda) ||
                 modelo.includes(terminoBusqueda) ||
                 noSerie.includes(terminoBusqueda) ||
-                ubicacion.includes(terminoBusqueda)
+                ubicacion.includes(terminoBusqueda) ||
+                estado.includes(terminoBusqueda)
             ) {
                 fila.style.display = "";
             } else {
