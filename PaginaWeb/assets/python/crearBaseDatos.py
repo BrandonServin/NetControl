@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///reportes.db'  # Base de datos SQLite
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///baseNetControl.db'  # Base de datos SQLite
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -17,6 +17,17 @@ class Reportes(db.Model):
 
     def __repr__(self):
         return f'Reporte({self.id}, {self.titulo}, {self.prioridad}, {self.estado}, {self.fecha})'
+    
+# Definir el modelo de la tabla inventario
+class Inventario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    modelo = db.Column(db.String(40), nullable=False)
+    noSerie = db.Column(db.String(40), nullable=False)
+    ubicacion = db.Column(db.String(40), nullable=False)
+
+    def __repr__(self):
+        return f'Reporte({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.ubicacion})'
 
 # Crear la base de datos y las tablas
 if __name__ == '__main__':

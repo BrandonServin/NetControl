@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Obtener la ruta donde está el archivo server.py
-db_path = os.path.join(basedir, 'assets', 'python','instance','reportes.db')
+db_path = os.path.join(basedir, 'assets', 'python','instance','baseNetControl.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'  # Ruta a la base de datos en la carpeta 'data'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -14,6 +14,8 @@ print(f'Ruta de la base de datos: {db_path}')
 db = SQLAlchemy(app)
 CORS(app)  # Habilitar CORS para comunicación con el frontend
 
+
+#- - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
 # Modelo de la base de datos
 class Reportes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,6 +57,28 @@ def actualizar_reporte(id):
     db.session.commit()
 
     return jsonify({"message": "Estado actualizado correctamente", "nuevo_estado": nuevo_estado}), 200
+
+#- - - - - - - - - - - - Fin De Los Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
+
+#- - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Inventario - - - - - - - - - - - -
+class Inventario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    modelo = db.Column(db.String(40), nullable=False)
+    noSerie = db.Column(db.String(40), nullable=False)
+    ubicacion = db.Column(db.String(40), nullable=False)
+
+# Ruta para agregar un nuevo reporte
+@app.route('/inventario', methods=['POST'])
+def agregar_inv():
+    data = request.json
+    nuevo_inv = Reportes(nombre=data['nombre'], modelo=data['modelo'], noSerie=data['noSerie'], ubicacion=data['ubicacion'])
+    db.session.add(nuevo_inv)
+    db.session.commit()
+    return jsonify({"mensaje": "Inventario agregado correctamente"}), 201
+
+
+
 
 
 
