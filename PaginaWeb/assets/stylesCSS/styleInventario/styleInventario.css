@@ -5,12 +5,81 @@ body {
     background-color: #1A1A1A !important;
 }
 
-h1{
+h1 {
     color: white;
 }
 
-.lineaSeparadora { 
+.textForm {
+    font-size: 1rem !important;
+}
+
+h3 {
+    font-size: 1.5rem;
+    white-space: nowrap;
+}
+
+.lineaSeparadora {
     border-top: 2px solid rgb(255, 255, 255);
     margin-top: 2px;
     margin-bottom: 5px;
+}
+
+button {
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #2A2A2A;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+input {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    background-color: rgba(42, 42, 42, 1);
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.contact-form ::placeholder {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 14px;
+}
+
+#agregarBtn:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.search-bar {
+    background-color: rgb(232, 230, 229);
+    border: 2px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+/* Estilos para animaciones */
+.animacion {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.animacion.visible {
+    opacity: 1;
 }

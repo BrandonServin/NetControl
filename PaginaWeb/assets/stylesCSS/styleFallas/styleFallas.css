@@ -83,11 +83,3 @@ select {
     vertical-align: middle;
     margin-left: 8px;
 }
-
-/* Clase para personalizar el icono de buscar */
-.icon-buscar {
-    background-image: url('../../../img/svg1_buscar.svg');
-    width: 35px !important;
-    height: 35px !important;
-    color: white !important;
-}
