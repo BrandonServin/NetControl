@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
+import speedtest
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Obtener la ruta donde está el archivo server.py
@@ -94,7 +95,37 @@ def eliminar_inv(id):
     db.session.commit()
     return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
 
-
+#- - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
+# Ruta para iniciar la prueba de speedtest
+@app.route('/iniciar_prueba')
+def iniciar_prueba():
+    try:
+        # Inicializa Speedtest
+        st = speedtest.Speedtest()
+        
+        # Encuentra el mejor servidor automáticamente
+        st.get_best_server()
+        
+        # Realiza las pruebas de descarga y subida
+        download_speed = st.download()
+        upload_speed = st.upload()
+        
+        # Obtiene los resultados
+        results = st.results.dict()
+        
+        # Devuelve los resultados en Mbps y el ping en ms
+        return jsonify({
+            'download': round(download_speed / 1_000_000, 2),  # Convertir a Mbps
+            'upload': round(upload_speed / 1_000_000, 2),      # Convertir a Mbps
+            'ping': results['ping']
+        })
+    except speedtest.SpeedtestException as e:
+        # Maneja errores específicos de Speedtest
+        return jsonify({'error': f"Error de Speedtest: {str(e)}"}), 500
+    except Exception as e:
+        # Maneja errores inesperados
+        return jsonify({'error': f"Error inesperado: {str(e)}"}), 500
+#- - - - - - - - - - - - Fin del Metodo - - - - - - - - - - - -
 
 
 if __name__ == '__main__':
