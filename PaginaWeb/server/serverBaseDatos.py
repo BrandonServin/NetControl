@@ -68,12 +68,13 @@ class Inventario(db.Model):
     modelo = db.Column(db.String(40), nullable=False)
     noSerie = db.Column(db.String(40), nullable=False)
     ubicacion = db.Column(db.String(40), nullable=False)
+    estado = db.Column(db.String(20), nullable=False)
 
 # Ruta para agregar un nuevo reporte
 @app.route('/inventario', methods=['POST'])
 def agregar_inv():
     data = request.json
-    nuevo_inv = Inventario(nombre=data['nombre'], modelo=data['modelo'], noSerie=data['noSerie'], ubicacion=data['ubicacion'])
+    nuevo_inv = Inventario(nombre=data['nombre'], modelo=data['modelo'], noSerie=data['noSerie'], ubicacion=data['ubicacion'], estado=data['estado'])
     db.session.add(nuevo_inv)
     db.session.commit()
     return jsonify({"mensaje": "Inventario agregado correctamente"}), 201
@@ -82,7 +83,7 @@ def agregar_inv():
 @app.route('/inventario', methods=['GET'])
 def obtener_inv():
     reportes = Inventario.query.all()
-    return jsonify([{"id": r.id, "nombre": r.nombre, "modelo": r.modelo, "noSerie": r.noSerie, "ubicacion": r.ubicacion} for r in reportes])
+    return jsonify([{"id": r.id, "nombre": r.nombre, "modelo": r.modelo, "noSerie": r.noSerie, "ubicacion": r.ubicacion, "estado": r.estado} for r in reportes])
 
 # Ruta para eliminar un inventario por su ID
 @app.route('/inventario/<int:id>', methods=['DELETE'])
