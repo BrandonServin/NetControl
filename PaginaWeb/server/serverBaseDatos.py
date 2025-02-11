@@ -104,7 +104,7 @@ def obtener_dispositivos():
     if ip_address and subnet_mask:
         network_ip = calculate_network_ip(ip_address, subnet_mask)
         devices = scan_network(network_ip)
-        return jsonify({'dispositivos_conectados': len(devices), 'ips': devices})
+        return jsonify({'dispositivos_conectados': devices})  # Elimina `len(devices)`
     else:
         return jsonify({'error': 'No se pudo detectar la red a la que estás conectado.'}), 500
 
