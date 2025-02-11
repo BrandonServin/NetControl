@@ -72,12 +72,27 @@ class Inventario(db.Model):
 @app.route('/inventario', methods=['POST'])
 def agregar_inv():
     data = request.json
-    nuevo_inv = Reportes(nombre=data['nombre'], modelo=data['modelo'], noSerie=data['noSerie'], ubicacion=data['ubicacion'])
+    nuevo_inv = Inventario(nombre=data['nombre'], modelo=data['modelo'], noSerie=data['noSerie'], ubicacion=data['ubicacion'])
     db.session.add(nuevo_inv)
     db.session.commit()
     return jsonify({"mensaje": "Inventario agregado correctamente"}), 201
 
+# Ruta para obtener todos los reportes
+@app.route('/inventario', methods=['GET'])
+def obtener_inv():
+    reportes = Inventario.query.all()
+    return jsonify([{"id": r.id, "nombre": r.nombre, "modelo": r.modelo, "noSerie": r.noSerie, "ubicacion": r.ubicacion} for r in reportes])
 
+# Ruta para eliminar un inventario por su ID
+@app.route('/inventario/<int:id>', methods=['DELETE'])
+def eliminar_inv(id):
+    inventario = Inventario.query.get(id)
+    if not inventario:
+        return jsonify({"mensaje": "Elemento no encontrado"}), 404
+
+    db.session.delete(inventario)
+    db.session.commit()
+    return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
 
 
 
