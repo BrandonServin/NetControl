@@ -101,7 +101,7 @@
                 <div class="card">
                     <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
-                        <p class="card-text"><strong>8 Conectados</strong></p>
+                        <p class="card-text"><strong id="dispositivos-conectados">-</strong> Conectados</p>
                         <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
                     </div>
                 </div>
@@ -142,7 +142,35 @@
                     alert('Error al conectar con el servidor. Verifica la consola para más detalles.');
                 });
         }
+
+        function actualizarDispositivosConectados() {
+            fetch('http://127.0.0.1:5000/api/dispositivos')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error del servidor:', data.error);
+                        document.getElementById('dispositivos-conectados').textContent = 'Error';
+                    } else {
+                        document.getElementById('dispositivos-conectados').textContent = data.dispositivos_conectados;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('dispositivos-conectados').textContent = 'Error';
+                });
+        }
+
+        // Llama a la función al cargar la página
+        document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
+        // Actualiza el número de dispositivos conectados cada 10 segundos
+        setInterval(actualizarDispositivosConectados, 10000);
     </script>
+    
 </body>
 
 </html>
