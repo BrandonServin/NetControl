@@ -145,24 +145,20 @@
 
         function actualizarDispositivosConectados() {
             fetch('http://127.0.0.1:5000/api/dispositivos')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la solicitud: ' + response.statusText);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         console.error('Error del servidor:', data.error);
-                        document.getElementById('dispositivos-conectados').textContent = 'Error';
+                        document.getElementById('dispositivos-conectados').textContent = 'Error: ' + data.error;
                     } else {
                         document.getElementById('dispositivos-conectados').textContent = data.dispositivos_conectados;
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('dispositivos-conectados').textContent = 'Error';
+                    console.error('Error en la solicitud:', error);
+                    document.getElementById('dispositivos-conectados').textContent = 'Error en la solicitud';
                 });
+
         }
 
         // Llama a la función al cargar la página
@@ -170,7 +166,7 @@
         // Actualiza el número de dispositivos conectados cada 10 segundos
         setInterval(actualizarDispositivosConectados, 10000);
     </script>
-    
+
 </body>
 
 </html>
