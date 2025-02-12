@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú NETControl</title>
-    <link rel="stylesheet" href="PaginaWeb/assets/stylesCSS/styleInicio/styleInicio.css">
+    <title>Login NetControl</title>
+    <link rel="stylesheet" href="PaginaWeb/assets/stylesCSS/styleLogin/styleLogin.css">
     <link rel="stylesheet" href="PaginaWeb/assets/stylesCSS/styleHeader/styleHeader.css">
     <link rel="stylesheet" href="PaginaWeb/assets/bootstrap-5.2.3/css/bootstrap.min.css">
     <script src="PaginaWeb/assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
@@ -14,95 +14,24 @@
 
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
-            <div class="container-fluid">
-                <div class="d-flex">
-                    <!-- Botón de pantalla pequeña -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <!-- Logotipo y título -->
-                    <a class="navbar-brand d-flex align-items-center" href="PaginaWeb/inicio.html">
-                        <img src="PaginaWeb/img/logo.png" alt="Logotipo" class="logo ms-2">
-                        <span class="title ms-2">NETControl</span>
-                    </a>
-                </div>
-
-                <!-- Menú -->
-                <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
-                    <ul class="navbar-nav colorTexto">
-                        <li class="nav-item">
-                            <a class="nav-link staticHover" href="PaginaWeb/inicio.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="PaginaWeb/Paginas/Fallas.html">Fallas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="PaginaWeb/Paginas/Dispositivos.html">Dispositivos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="PaginaWeb/Paginas/Inventario.html">Inventario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="PaginaWeb/Paginas/Ajustes.html">Ajustes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="PaginaWeb/Paginas/Mantenimiento.html">Mantenimiento</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Contenedor principal con una clase personalizada para animación -->
-    <main class="container animacion lineaSeparadora">
-        <div class="ms-auto justify-content-center text-center my-4">
-            <h1>Bienvenido a la página de Inicio</h1>
-        </div>
-
+    <main class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="row g-3 align-items-stretch">
-            <div class="col-md-6 col-6 d-flex justify-content-center">
+            <div class="d-flex justify-content-center">
                 <div class="card">
                     <div class="card-body text-center d-flex flex-column">
-                        <h5 class="card-titulo">ANCHO DE BANDA</h5>
-                        <p class="card-text">Velocidad de descarga: <span id="download">-</span> Mbps</p>
-                        <p class="card-text">Velocidad de subida: <span id="upload">-</span> Mbps</p>
-                        <p class="card-text">Ping: <span id="ping">-</span> ms</p>
-                        <button class="btn btn-primary mt-auto" onclick="iniciarPrueba()">Iniciar Prueba</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-6 d-flex justify-content-center">
-                <div class="card">
-                    <div class="card-body text-center d-flex flex-column">
-                        <h5 class="card-titulo">ESTADO DE LA RED</h5>
-                        <p class="card-text text-success">ÓPTIMA</p>
-                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-6 d-flex justify-content-center">
-                <div class="card">
-                    <div class="card-body text-center d-flex flex-column">
-                        <h5 class="card-titulo">MANTENIMIENTO</h5>
-                        <p class="card-text text-danger">5 FALLAS/REPORTES</p>
-                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="producto4" class="col-md-6 col-6 d-flex justify-content-center">
-                <div class="card">
-                    <div class="card-body text-center d-flex flex-column">
-                        <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
-                        <p class="card-text"><strong id="dispositivos-conectados">-</strong> Conectados</p>
-                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 15px;">
+                            <img src="PaginaWeb/img/logo.png" alt="Logotipo" class="logo ms-2">
+                            <span class="title ms-2">NETControl</span>
+                        </div>
+                        <div class="mt-4">
+                            <h3>Correo Electrónico: </h3>
+                            <input type="text" name="correo" placeholder="Correo Electrónico" class="form-control">
+                        </div>
+                        <div class="mt-3 w-100">
+                            <h3>Contraseña: </h3>
+                            <input type="password" name="password" placeholder="Contraseña" class="form-control">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3" onclick="animateAndRedirect()">Login</button>
                     </div>
                 </div>
             </div>
@@ -110,61 +39,15 @@
     </main>
 
     <script>
-        function iniciarPrueba() {
-            // Limpia los resultados anteriores
-            document.getElementById('download').textContent = '...';
-            document.getElementById('upload').textContent = '...';
-            document.getElementById('ping').textContent = '...';
+        function animateAndRedirect() {
+            const loginCard = document.querySelector(".card");
 
-            // Realiza la solicitud al servidor Flask
-            fetch('http://127.0.0.1:5000/iniciar_prueba?t=' + new Date().getTime())
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la solicitud: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        // Muestra el error en la consola y en la página
-                        console.error('Error del servidor:', data.error);
-                        alert('Error: ' + data.error);
-                    } else {
-                        // Muestra los resultados en la página
-                        document.getElementById('download').textContent = data.download;
-                        document.getElementById('upload').textContent = data.upload;
-                        document.getElementById('ping').textContent = data.ping;
-                    }
-                })
-                .catch(error => {
-                    // Muestra errores de red o de la solicitud
-                    console.error('Error:', error);
-                    alert('Error al conectar con el servidor. Verifica la consola para más detalles.');
-                });
+            loginCard.classList.add("shrink");
+
+            setTimeout(() => {
+                window.location.href = "PaginaWeb/inicio.html";
+            }, 200);
         }
-
-        function actualizarDispositivosConectados() {
-            fetch('http://127.0.0.1:5000/api/dispositivos')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        console.error('Error del servidor:', data.error);
-                        document.getElementById('dispositivos-conectados').textContent = 'Error: ' + data.error;
-                    } else {
-                        document.getElementById('dispositivos-conectados').textContent = data.dispositivos_conectados;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error en la solicitud:', error);
-                    document.getElementById('dispositivos-conectados').textContent = 'Error en la solicitud';
-                });
-
-        }
-
-        // Llama a la función al cargar la página
-        document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
-        // Actualiza el número de dispositivos conectados cada 10 segundos
-        setInterval(actualizarDispositivosConectados, 10000);
     </script>
 </body>
 

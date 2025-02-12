@@ -5,25 +5,29 @@ body {
     background-color: #1A1A1A !important;
 }
 
-h1 {
-    color: white;
+.btn {
+    background-color: #2A2A2A !important;
 }
 
-.btn{
-    background-color: #2A2A2A !important;
+h3 {
+    font-size: 1.5rem !important;
+    margin-right: 5px;
+    font-weight: lighter !important;
 }
 
 /* Estilo para elementos con la clase .card */
 .card {
-    width: 780px;
-    height: 680px; 
+    width: 380px;
+    height: 680px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;  /* Evita que el contenido haga crecer la tarjeta */
-    white-space: normal; /* Permite saltos de línea si es necesario */
+    overflow: hidden;
+    /* Evita que el contenido haga crecer la tarjeta */
+    white-space: normal;
+    /* Permite saltos de línea si es necesario */
     word-wrap: break-word;
 }
 
@@ -34,24 +38,28 @@ h1 {
     color: white !important;
 }
 
+.form-control {
+    width: 100% !important;
+}
+
 /* Estilo para el estado hover de los botones con la clase .btn-color-card */
 .btn-color-card:hover {
     color: white;
     background-color: #555 !important;
 }
 
-.lineaSeparadora { 
-    border-top: 2px solid rgb(255, 255, 255);
-    margin-top: 2px;
-    margin-bottom: 5px;
+@keyframes scaleOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
 }
 
-/* Estilos para animaciones */
-.animacion {
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-}
-
-.animacion.visible {
-    opacity: 1;
+.shrink {
+    animation: scaleOut 0.2s ease-out forwards;
 }
