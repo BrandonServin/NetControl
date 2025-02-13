@@ -1,8 +1,12 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #1A1A1A !important;
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+.mainFont{
+    font-family: 'Source_Code_Pro', sans-serif;
 }
 
 h1 {

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Ubuntu';
+    src: url(../font/Font_Ubuntu/Ubuntu-Medium.ttf) format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source_Code_Pro';
+    src: url(../font/Source_Code_Pro/SourceCodePro-SemiBold.ttf) format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
