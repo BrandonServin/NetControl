@@ -6,18 +6,22 @@ import os
 import speedtest
 
 app = Flask(__name__)
-basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Obtener la ruta donde está el archivo server.py
-db_path = os.path.join(basedir, 'assets', 'python','instance','baseNetControl.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'  # Ruta a la base de datos en la carpeta 'data'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+basedir = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")
+)  # Obtener la ruta donde está el archivo server.py
+db_path = os.path.join(basedir, "assets", "python", "instance", "baseNetControl.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    f"sqlite:///{db_path}"  # Ruta a la base de datos en la carpeta 'data'
+)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-print(f'Ruta de la base de datos: {db_path}')
+print(f"Ruta de la base de datos: {db_path}")
 
 db = SQLAlchemy(app)
 CORS(app)  # Habilitar CORS para comunicación con el frontend
 
 
-#- - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
+# - - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
 # Modelo de la base de datos
 class Reportes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,23 +30,42 @@ class Reportes(db.Model):
     estado = db.Column(db.String(20), nullable=False)
     fecha = db.Column(db.String(10), nullable=False)
 
+
 # Ruta para obtener todos los reportes
-@app.route('/reportes', methods=['GET'])
+@app.route("/reportes", methods=["GET"])
 def obtener_reportes():
     reportes = Reportes.query.all()
-    return jsonify([{"id": r.id, "titulo": r.titulo, "prioridad": r.prioridad, "estado": r.estado, "fecha": r.fecha} for r in reportes])
+    return jsonify(
+        [
+            {
+                "id": r.id,
+                "titulo": r.titulo,
+                "prioridad": r.prioridad,
+                "estado": r.estado,
+                "fecha": r.fecha,
+            }
+            for r in reportes
+        ]
+    )
+
 
 # Ruta para agregar un nuevo reporte
-@app.route('/reportes', methods=['POST'])
+@app.route("/reportes", methods=["POST"])
 def agregar_reporte():
     data = request.json
-    nuevo_reporte = Reportes(titulo=data['titulo'], prioridad=data['prioridad'], estado=data['estado'], fecha=data['fecha'])
+    nuevo_reporte = Reportes(
+        titulo=data["titulo"],
+        prioridad=data["prioridad"],
+        estado=data["estado"],
+        fecha=data["fecha"],
+    )
     db.session.add(nuevo_reporte)
     db.session.commit()
     return jsonify({"mensaje": "Reporte agregado correctamente"}), 201
 
+
 # Ruta para actualizar el estado
-@app.route('/reportes/<int:id>', methods=['PUT'])
+@app.route("/reportes/<int:id>", methods=["PUT"])
 def actualizar_reporte(id):
     data = request.json
     nuevo_estado = data.get("estado")
@@ -58,11 +81,21 @@ def actualizar_reporte(id):
     reporte.estado = nuevo_estado
     db.session.commit()
 
-    return jsonify({"message": "Estado actualizado correctamente", "nuevo_estado": nuevo_estado}), 200
+    return (
+        jsonify(
+            {
+                "message": "Estado actualizado correctamente",
+                "nuevo_estado": nuevo_estado,
+            }
+        ),
+        200,
+    )
 
-#- - - - - - - - - - - - Fin De Los Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
 
-#- - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Inventario - - - - - - - - - - - -
+# - - - - - - - - - - - - Fin De Los Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
+
+
+# - - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Inventario - - - - - - - - - - - -
 class Inventario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
@@ -71,23 +104,44 @@ class Inventario(db.Model):
     ubicacion = db.Column(db.String(40), nullable=False)
     estado = db.Column(db.String(20), nullable=False)
 
+
 # Ruta para agregar un nuevo reporte
-@app.route('/inventario', methods=['POST'])
+@app.route("/inventario", methods=["POST"])
 def agregar_inv():
     data = request.json
-    nuevo_inv = Inventario(nombre=data['nombre'], modelo=data['modelo'], noSerie=data['noSerie'], ubicacion=data['ubicacion'], estado=data['estado'])
+    nuevo_inv = Inventario(
+        nombre=data["nombre"],
+        modelo=data["modelo"],
+        noSerie=data["noSerie"],
+        ubicacion=data["ubicacion"],
+        estado=data["estado"],
+    )
     db.session.add(nuevo_inv)
     db.session.commit()
     return jsonify({"mensaje": "Inventario agregado correctamente"}), 201
 
+
 # Ruta para obtener todos los reportes
-@app.route('/inventario', methods=['GET'])
+@app.route("/inventario", methods=["GET"])
 def obtener_inv():
     reportes = Inventario.query.all()
-    return jsonify([{"id": r.id, "nombre": r.nombre, "modelo": r.modelo, "noSerie": r.noSerie, "ubicacion": r.ubicacion, "estado": r.estado} for r in reportes])
+    return jsonify(
+        [
+            {
+                "id": r.id,
+                "nombre": r.nombre,
+                "modelo": r.modelo,
+                "noSerie": r.noSerie,
+                "ubicacion": r.ubicacion,
+                "estado": r.estado,
+            }
+            for r in reportes
+        ]
+    )
+
 
 # Ruta para eliminar un inventario por su ID
-@app.route('/inventario/<int:id>', methods=['DELETE'])
+@app.route("/inventario/<int:id>", methods=["DELETE"])
 def eliminar_inv(id):
     inventario = Inventario.query.get(id)
     if not inventario:
@@ -97,51 +151,71 @@ def eliminar_inv(id):
     db.session.commit()
     return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
 
-#mostramos la cantidad de dispositivos conectados
+
+# mostramos la cantidad de dispositivos conectados
 
 @app.route('/api/dispositivos', methods=['GET'])
 def obtener_dispositivos():
+    """Obtiene la cantidad de dispositivos conectados en la red."""
     ip_address, subnet_mask = get_network_info()
-    if ip_address and subnet_mask:
-        network_ip = calculate_network_ip(ip_address, subnet_mask)
-        devices = scan_network(network_ip)
-        return jsonify({'dispositivos_conectados': devices})
-    else:
-        return jsonify({'error': 'No se pudo detectar la red a la que estás conectado.'}), 500
+    if not ip_address or not subnet_mask:
+        return jsonify({"error": "No se pudo obtener la información de la red"}), 500
+
+    network_ip = calculate_network_ip(ip_address, subnet_mask)
+    devices = scan_network(network_ip, subnet_mask)
+
+    if isinstance(devices, dict) and "error" in devices:
+        return jsonify(devices), 500
+
+    # Imprime la lista de dispositivos en la consola
+    print(devices)
+
+    return jsonify(
+        {
+            "network": f"{network_ip}/{subnet_mask}",
+            "devices": devices,
+            "total_devices": len(devices),  # Aquí ya estás devolviendo el total de dispositivos
+        }
+    )
 
 
-#- - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
+
+# - - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
 # Ruta para iniciar la prueba de speedtest
-@app.route('/iniciar_prueba')
+@app.route("/iniciar_prueba")
 def iniciar_prueba():
     try:
         # Inicializa Speedtest
         st = speedtest.Speedtest()
-        
+
         # Encuentra el mejor servidor automáticamente
         st.get_best_server()
-        
+
         # Realiza las pruebas de descarga y subida
         download_speed = st.download()
         upload_speed = st.upload()
-        
+
         # Obtiene los resultados
         results = st.results.dict()
-        
+
         # Devuelve los resultados en Mbps y el ping en ms
-        return jsonify({
-            'download': round(download_speed / 1_000_000, 2),  # Convertir a Mbps
-            'upload': round(upload_speed / 1_000_000, 2),      # Convertir a Mbps
-            'ping': results['ping']
-        })
+        return jsonify(
+            {
+                "download": round(download_speed / 1_000_000, 2),  # Convertir a Mbps
+                "upload": round(upload_speed / 1_000_000, 2),  # Convertir a Mbps
+                "ping": results["ping"],
+            }
+        )
     except speedtest.SpeedtestException as e:
         # Maneja errores específicos de Speedtest
-        return jsonify({'error': f"Error de Speedtest: {str(e)}"}), 500
+        return jsonify({"error": f"Error de Speedtest: {str(e)}"}), 500
     except Exception as e:
         # Maneja errores inesperados
-        return jsonify({'error': f"Error inesperado: {str(e)}"}), 500
-#- - - - - - - - - - - - Fin del Metodo - - - - - - - - - - - -
+        return jsonify({"error": f"Error inesperado: {str(e)}"}), 500
 
 
-if __name__ == '__main__':
+# - - - - - - - - - - - - Fin del Metodo - - - - - - - - - - - -
+
+
+if __name__ == "__main__":
     app.run(debug=True)
