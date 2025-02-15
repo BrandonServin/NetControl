@@ -185,30 +185,27 @@
             return response.json();
         })
         .then(data => {
-            let list = document.getElementById("devices");
             let totalDevicesElement = document.getElementById("total_devices");
-            list.innerHTML = "";
-            
-            if (data.error) {
-                list.innerHTML = `<li>Error: ${data.error}</li>`;
-                return;
+
+            if (!data || typeof data.total_devices === "undefined") {
+                throw new Error("Respuesta inesperada del servidor");
             }
 
-            // Actualizar el número total de dispositivos
+            // Actualizar solo el número total de dispositivos
             totalDevicesElement.textContent = data.total_devices;
-
-            // Mostrar la lista de dispositivos
-            data.devices.forEach(device => {
-                let li = document.createElement("li");
-                li.textContent = `IP: ${device.ip}, Hostname: ${device.hostname}`;
-                list.appendChild(li);
-            });
         })
         .catch(error => {
             console.error("Error:", error);
-            document.getElementById("devices").innerHTML = "<li>Error al cargar dispositivos</li>";
+            document.getElementById("total_devices").textContent = "Error";
         });
 }
+
+// Llamar a la función al cargar la página
+document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
+
+// Actualizar cada 10 segundos
+setInterval(actualizarDispositivosConectados, 10000);
+
 
 
 
