@@ -4,6 +4,10 @@ from TotalDis import get_network_info, calculate_network_ip, scan_network
 from flask_cors import CORS
 import os
 import speedtest
+import nmap
+import socket
+import subprocess
+import re
 
 app = Flask(__name__)
 basedir = os.path.abspath(
@@ -105,7 +109,7 @@ class Inventario(db.Model):
     estado = db.Column(db.String(20), nullable=False)
 
 
-# Ruta para agregar un nuevo reporte
+# Ruta para agregar un nuevo inventario
 @app.route("/inventario", methods=["POST"])
 def agregar_inv():
     data = request.json
@@ -152,31 +156,61 @@ def eliminar_inv(id):
     return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
 
 
-# mostramos la cantidad de dispositivos conectados
+#- - - - - - - - - - - - Metodos De MMap- - - - - - - - - - - -
+# Mostramos la cantidad de dispositivos conectados
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(0)
+    try:
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = '127.0.0.1'  # Si no se puede obtener la IP, se asigna localhost
+    finally:
+        s.close()
+    return ip
 
-@app.route('/api/dispositivos', methods=['GET'])
-def obtener_dispositivos():
-    """Obtiene la cantidad de dispositivos conectados en la red."""
-    ip_address, subnet_mask = get_network_info()
-    if not ip_address or not subnet_mask:
-        return jsonify({"error": "No se pudo obtener la información de la red"}), 500
+    
+@app.route('/scan')
+def scan():
+    ip = get_local_ip()
+    subnet = '.'.join(ip.split('.')[:-1]) + '.0/24'
 
-    network_ip = calculate_network_ip(ip_address, subnet_mask)
-    devices = scan_network(network_ip, subnet_mask)
+    try:
+        result = subprocess.run(['nmap', '-sP', subnet], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output = result.stdout.decode('utf-8')
+        error = result.stderr.decode('utf-8')
 
-    if isinstance(devices, dict) and "error" in devices:
-        return jsonify(devices), 500
+        if error:
+            return jsonify({"error": error}), 500
 
-    # Imprime la lista de dispositivos en la consola
-    print(devices)
+        devices = []
+        device_info = {}
 
-    return jsonify(
-        {
-            "network": f"{network_ip}/{subnet_mask}",
-            "devices": devices,
-            "total_devices": len(devices),  # Aquí ya estás devolviendo el total de dispositivos
-        }
-    )
+        for line in output.split('\n'):
+            if "Nmap scan report for" in line:
+                match = re.search(r'Nmap scan report for (.+)', line)
+                if match:
+                    device_info = {"Nombre": match.group(1), "Ip": match.group(1), "Mac": None, "Estado": "Up"}
+            elif "Host is up" in line:
+                pass  # Ya sabemos que el host está activo
+            elif "MAC Address" in line:
+                match = re.search(r'MAC Address: ([0-9A-Fa-f:]+) \((.+)\)', line)
+                if match:
+                    device_info["Mac"] = match.group(1)
+
+            if "Nombre" in device_info and device_info["Nombre"] and device_info["Mac"]:
+                devices.append(device_info)
+                device_info = {}
+
+        return jsonify({
+            "subnet": subnet,
+            "dispositivos_conectados": len(devices),
+            "dispositivos": devices
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 
+
 
 
 

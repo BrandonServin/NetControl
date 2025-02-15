@@ -124,21 +124,15 @@
                     </div>
                 </div>
 
-                <div id="producto4"
-                    class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="col-md-6 col-6 d-flex justify-content-center">
                     <div class="card">
                         <div class="card-body text-center d-flex flex-column">
                             <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
-                            <p class="card-text">
-                                <strong id="total_devices">-</strong> Conectados
-                            </p>
-                            <ul id="devices" class="list-group"></ul>
-                            <a href="#"
-                                class="btn btn-color-card mt-auto">Detalles</a>
+                            <p class="card-text" id="dispositivos-conectados">--- Conectados</p>
+                            <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
 
@@ -177,40 +171,22 @@
         }
 
         function actualizarDispositivosConectados() {
-    fetch('http://127.0.0.1:5000/api/dispositivos')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Error al obtener dispositivos");
-            }
-            return response.json();
-        })
-        .then(data => {
-            let list = document.getElementById("devices");
-            let totalDevicesElement = document.getElementById("total_devices");
-            list.innerHTML = "";
-            
-            if (data.error) {
-                list.innerHTML = `<li>Error: ${data.error}</li>`;
-                return;
-            }
-
-            // Actualizar el número total de dispositivos
-            totalDevicesElement.textContent = data.total_devices;
-
-            // Mostrar la lista de dispositivos
-            data.devices.forEach(device => {
-                let li = document.createElement("li");
-                li.textContent = `IP: ${device.ip}, Hostname: ${device.hostname}`;
-                list.appendChild(li);
-            });
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            document.getElementById("devices").innerHTML = "<li>Error al cargar dispositivos</li>";
-        });
-}
-
-
+            fetch('http://127.0.0.1:5000/scan')  // Cambia la URL para que coincida con la ruta de Flask
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error del servidor:', data.error);
+                        document.getElementById('dispositivos-conectados').textContent = 'Error: ' + data.error;
+                    } else {
+                        document.getElementById('dispositivos-conectados').textContent = 
+                            `Dispositivos activos: ${data.dispositivos_conectados}`; 
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                    document.getElementById('dispositivos-conectados').textContent = 'Error en la solicitud';
+                });
+        }
 
         // Llama a la función al cargar la página
         document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
