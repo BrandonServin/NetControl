@@ -114,6 +114,13 @@
                 </div>
             </form>
         </div>
+
+        <div class="config-box mt-5">
+            <h2>Estado de la red</h2>
+            <div id="network-status">
+                <p>Cargando estado de la red...</p>
+            </div>
+        </div>
     </main>
 
     <!-- Código JavaScript -->
@@ -148,6 +155,33 @@
             })
             .catch(error => {
                 console.error('Error en la solicitud fetch:', error); // Depuración
+            });
+
+        // Obtener el estado de la red
+        fetch('http://127.0.0.1:5000/network_status')  // Asegúrate de que esta URL sea correcta
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Estado de la red recibido del backend:", data); // Depuración
+                const networkStatusDiv = document.getElementById('network-status');
+                if (data.error) {
+                    networkStatusDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    networkStatusDiv.innerHTML = `
+                        <p>Estado de la red: ${data.status}</p>
+                        <p>Velocidad de descarga: ${data.download_speed} Mbps</p>
+                        <p>Velocidad de subida: ${data.upload_speed} Mbps</p>
+                        <p>Latencia: ${data.latency} ms</p>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud fetch:', error); // Depuración
+                document.getElementById('network-status').innerHTML = `<p>Error al obtener el estado de la red</p>`;
             });
 
         // Simulación de la detección de la banda y el tipo de cifrado de la red conectada
