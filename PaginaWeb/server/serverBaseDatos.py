@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
@@ -7,7 +7,6 @@ import nmap
 import socket
 import subprocess
 import re
-from flask import Flask, render_template
 
 app = Flask(__name__)
 basedir = os.path.abspath(
