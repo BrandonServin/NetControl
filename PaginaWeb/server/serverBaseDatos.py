@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from TotalDis import get_network_info, calculate_network_ip, scan_network
 from flask_cors import CORS
 import os
 import speedtest
