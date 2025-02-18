@@ -1,105 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menú NETControl</title>
-        <link rel="stylesheet"
-            href="../assets/stylesCSS/styleInicio/styleInicio.css">
-        <link rel="stylesheet"
-            href="../assets/stylesCSS/styleHeader/styleHeader.css">
-        <link rel="stylesheet"
-            href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/stylesCSS/font.css">
-        <script
-            src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
-        <script src="../assets/scripts/animCargar.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú NETControl</title>
+    <link rel="stylesheet" href="../assets/stylesCSS/styleInicio/styleInicio.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
+    <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/font.css">
+    <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/scripts/animCargar.js"></script>
+</head>
 
-    <body>
+<body>
 
-        <header>
-            <nav
-                class="navbar navbar-expand-lg navbar-light search-elements-container">
-                <div class="container-fluid">
-                    <div class="d-flex">
-                        <!-- Botón de pantalla pequeña -->
-                        <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
+            <div class="container-fluid">
+                <div class="d-flex">
+                    <!-- Botón de pantalla pequeña -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                        <!-- Logotipo y título -->
-                        <a class="navbar-brand d-flex align-items-center"
-                            href="inicio.html">
-                            <img src="../img/logo.png" alt="Logotipo"
-                                class="logo ms-2">
-                            <span class="title ms-2">NETControl</span>
-                        </a>
-                    </div>
-
-                    <!-- Menú -->
-                    <div
-                        class="collapse navbar-collapse menu justify-content-lg-end"
-                        id="navbarNav">
-                        <ul class="navbar-nav colorTexto">
-                            <li class="nav-item">
-                                <a class="nav-link staticHover"
-                                    href="inicio.html">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Fallas.html">Fallas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Dispositivos.html">Dispositivos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Inventario.html">Inventario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Ajustes.html">Ajustes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Mantenimiento.html">Mantenimiento</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- Logotipo y título -->
+                    <a class="navbar-brand d-flex align-items-center" href="inicio.html">
+                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
+                        <span class="title ms-2">NETControl</span>
+                    </a>
                 </div>
-            </nav>
-        </header>
 
-        <!-- Contenedor principal con una clase personalizada para animación -->
-        <main class="container animacion lineaSeparadora mainFont">
-            <div class="ms-auto justify-content-center text-center my-4">
-                <h1>Bienvenido a la página de Inicio</h1>
+                <!-- Menú -->
+                <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
+                    <ul class="navbar-nav colorTexto">
+                        <li class="nav-item">
+                            <a class="nav-link staticHover" href="inicio.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Fallas.html">Fallas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Dispositivos.html">Dispositivos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Inventario.html">Inventario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Ajustes.html">Ajustes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Mantenimiento.html">Mantenimiento</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header>
 
-            <div class="row g-3 align-items-stretch">
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">ANCHO DE BANDA</h5>
-                            <p class="card-text">Velocidad de descarga: <span
-                                    id="download">-</span> Mbps</p>
-                            <p class="card-text">Velocidad de subida: <span
-                                    id="upload">-</span> Mbps</p>
-                            <p class="card-text">Ping: <span id="ping">-</span>
-                                ms</p>
-                            <button class="btn btn-primary mt-auto"
-                                onclick="iniciarPrueba()">Iniciar
-                                Prueba</button>
-                        </div>
-                    </div>
-                </div>
+    <!-- Contenedor principal con una clase personalizada para animación -->
+    <main class="container animacion lineaSeparadora mainFont">
+        <div class="ms-auto justify-content-center text-center my-4">
+            <h1>Bienvenido a la página de Inicio</h1>
+        </div>
 
                 <div class="col-md-6 col-6 d-flex justify-content-center">
                     <div class="card">
@@ -136,9 +101,44 @@
                     </div>
                 </div>
             </div>
-        </main>
 
-        <script>
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">ESTADO DE LA RED</h5>
+                        <p class="card-text text-success">ÓPTIMA</p>
+                        <a href="Ajustes.html" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">MANTENIMIENTO</h5>
+                        <p class="card-text text-danger">5 FALLAS/REPORTES</p>
+                        <a href="Mantenimiento.html" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="producto4" class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
+                        <p class="card-text">
+                            <strong id="total_devices">-</strong> Conectados
+                        </p>
+                        <ul id="devices" class="list-group"></ul>
+                        <a href="Dispositivos.html" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
         function iniciarPrueba() {
             // Limpia los resultados anteriores
             document.getElementById('download').textContent = '...';
@@ -183,12 +183,29 @@
                         document.getElementById('dispositivos-conectados').textContent = 
                             `Dispositivos activos: ${data.dispositivos_conectados}`; 
                     }
+                    return response.json();
+                })
+                .then(data => {
+                    let totalDevicesElement = document.getElementById("total_devices");
+
+                    if (!data || typeof data.total_devices === "undefined") {
+                        throw new Error("Respuesta inesperada del servidor");
+                    }
+
+                    // Actualizar solo el número total de dispositivos
+                    totalDevicesElement.textContent = data.total_devices;
                 })
                 .catch(error => {
-                    console.error('Error en la solicitud:', error);
-                    document.getElementById('dispositivos-conectados').textContent = 'Error en la solicitud';
+                    console.error("Error:", error);
+                    document.getElementById("total_devices").textContent = "Error";
                 });
         }
+
+        // Llamar a la función al cargar la página
+        document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
+
+        // Actualizar cada 10 segundos
+        setInterval(actualizarDispositivosConectados, 10000);
 
         // Llama a la función al cargar la página
         document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
@@ -196,6 +213,6 @@
         setInterval(actualizarDispositivosConectados, 10000);
     </script>
 
-    </body>
+</body>
 
 </html>
