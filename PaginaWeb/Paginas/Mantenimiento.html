@@ -1,129 +1,318 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mantenimiento</title>
-    <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
-    <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/stylesCSS/styleMantenimiento/styleMantenimiento.css">
-    <link rel="stylesheet" href="../assets/stylesCSS/font.css">
-    <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .config-box {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .config-box h2 {
-            margin-bottom: 20px;
-        }
-        .config-box .form-check {
-            margin-bottom: 10px;
-        }
-        .config-box .device-list {
-            margin-top: 20px;
-        }
-        .config-box .device-list .device-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mantenimiento</title>
+  <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
+  <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/stylesCSS/styleMantenimiento/styleMantenimiento.css">
+  <link rel="stylesheet" href="../assets/stylesCSS/font.css">
+  <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .config-box {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    .config-box h2 {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body class="dark-mode">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
-            <div class="container-fluid">
-                <div class="d-flex">
-                    <!-- Botón de pantalla pequeña -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <!-- Logotipo y título -->
-                    <a class="navbar-brand d-flex align-items-center" href="inicio.html">
-                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
-                        <span class="title ms-2">NETControl</span>
-                    </a>
-                </div>
-
-                <!-- Menú -->
-                <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
-                    <ul class="navbar-nav colorTexto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="inicio.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Fallas.html">Fallas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Dispositivos.html">Dispositivos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Inventario.html">Inventario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Ajustes.html">Ajustes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link staticHover" href="Mantenimiento.html">Mantenimiento</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container animacion lineaSeparadora mainFont">
-        <div class="config-box mt-5">
-            <h2>Planes de prevención y corrección</h2>
-            <div class="container mt-4">
-                <table class="table table-striped table-bordered table-light">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mantenimiento Preventivo</td>
-                            <td>Preventivo</td>
-                            <td>Activo</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Detalles</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Corrección de Fallas</td>
-                            <td>Correctivo</td>
-                            <td>En Proceso</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Detalles</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Actualización de Software</td>
-                            <td>Preventivo</td>
-                            <td>Completado</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Detalles</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
+      <div class="container-fluid">
+        <div class="d-flex">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand d-flex align-items-center" href="inicio.html">
+            <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
+            <span class="title ms-2">NETControl</span>
+          </a>
         </div>
-    </main>
+        <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
+          <ul class="navbar-nav colorTexto">
+            <li class="nav-item"><a class="nav-link" href="inicio.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="Fallas.html">Fallas</a></li>
+            <li class="nav-item"><a class="nav-link" href="Dispositivos.html">Dispositivos</a></li>
+            <li class="nav-item"><a class="nav-link" href="Inventario.html">Inventario</a></li>
+            <li class="nav-item"><a class="nav-link" href="Ajustes.html">Ajustes</a></li>
+            <li class="nav-item"><a class="nav-link staticHover" href="Mantenimiento.html">Mantenimiento</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="container animacion lineaSeparadora mainFont">
+    <!-- Planes de Prevención -->
+    <div class="config-box mt-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Planes de Prevención</h2>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPreventionModal">Agregar plan de prevención</button>
+      </div>
+      <div class="container mt-4">
+        <table class="table table-striped table-bordered table-light" id="preventionTable">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Se llenará dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Planes de Corrección -->
+    <div class="config-box mt-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Planes de Corrección</h2>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCorrectionModal">Agregar plan de corrección</button>
+      </div>
+      <div class="container mt-4">
+        <table class="table table-striped table-bordered table-light" id="correctionTable">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Se llenará dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <!-- Modal para agregar plan de Prevención -->
+  <div class="modal fade" id="addPreventionModal" tabindex="-1" aria-labelledby="addPreventionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="addPreventionForm" enctype="multipart/form-data">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addPreventionModalLabel">Agregar Plan de Prevención</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="preventionName" class="form-label">Nombre del plan</label>
+              <input type="text" class="form-control" id="preventionName" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="preventionState" class="form-label">Estado</label>
+              <input type="text" class="form-control" id="preventionState" name="state" required>
+            </div>
+            <!-- Tipo fijo: Preventivo -->
+            <input type="hidden" name="type" value="Preventivo">
+            <div class="mb-3">
+              <label for="preventionFile" class="form-label">Archivo (opcional)</label>
+              <input class="form-control" type="file" id="preventionFile" name="file">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Agregar Plan</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal para agregar plan de Corrección -->
+  <div class="modal fade" id="addCorrectionModal" tabindex="-1" aria-labelledby="addCorrectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="addCorrectionForm" enctype="multipart/form-data">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCorrectionModalLabel">Agregar Plan de Corrección</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="correctionName" class="form-label">Nombre del plan</label>
+              <input type="text" class="form-control" id="correctionName" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="correctionState" class="form-label">Estado</label>
+              <input type="text" class="form-control" id="correctionState" name="state" required>
+            </div>
+            <!-- Tipo fijo: Correctivo -->
+            <input type="hidden" name="type" value="Correctivo">
+            <div class="mb-3">
+              <label for="correctionFile" class="form-label">Archivo (opcional)</label>
+              <input class="form-control" type="file" id="correctionFile" name="file">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Agregar Plan</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal de Detalles -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Detalles del Plan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <p id="planDetails"></p>
+          <div id="downloadSection" style="display:none;">
+            <a id="downloadLink" href="#" class="btn btn-primary">Descargar Archivo</a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts para manejar la lógica -->
+  <script>
+    // Variable global para almacenar los planes
+    let plansData = [];
+
+    // Función para cargar los planes desde el servidor
+    function loadPlans() {
+      fetch('http://localhost:5000/plans')
+        .then(response => response.json())
+        .then(data => {
+          plansData = data.plans;
+          renderTables();
+        })
+        .catch(error => console.error('Error al obtener planes:', error));
+    }
+
+    // Renderiza las tablas de prevención y corrección
+    function renderTables() {
+      const preventionTableBody = document.querySelector('#preventionTable tbody');
+      const correctionTableBody = document.querySelector('#correctionTable tbody');
+      preventionTableBody.innerHTML = '';
+      correctionTableBody.innerHTML = '';
+
+      plansData.forEach(plan => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${plan.name}</td>
+          <td>${plan.type}</td>
+          <td>${plan.state}</td>
+          <td>
+            <button class="btn btn-info btn-sm detailsBtn" data-id="${plan.id}" data-bs-toggle="modal" data-bs-target="#detailsModal">Detalles</button>
+            <button class="btn btn-danger btn-sm deleteBtn" data-id="${plan.id}">Eliminar</button>
+          </td>
+        `;
+        if (plan.type === 'Preventivo') {
+          preventionTableBody.appendChild(row);
+        } else if (plan.type === 'Correctivo') {
+          correctionTableBody.appendChild(row);
+        }
+      });
+
+      // Asigna eventos a los botones de "Detalles"
+      document.querySelectorAll('.detailsBtn').forEach(button => {
+        button.addEventListener('click', function() {
+          const planId = this.getAttribute('data-id');
+          showDetails(planId);
+        });
+      });
+
+      // Evento para botón de eliminar (opcional, sin funcionalidad implementada)
+      document.querySelectorAll('.deleteBtn').forEach(button => {
+        button.addEventListener('click', function() {
+          const planId = this.getAttribute('data-id');
+          alert('Eliminar plan con ID: ' + planId);
+        });
+      });
+    }
+
+    // Muestra el modal de detalles con la información del plan
+    function showDetails(planId) {
+      const plan = plansData.find(p => p.id == planId);
+      if (plan) {
+        document.getElementById('planDetails').innerHTML = `<strong>Nombre:</strong> ${plan.name}<br>
+          <strong>Tipo:</strong> ${plan.type}<br>
+          <strong>Estado:</strong> ${plan.state}<br>
+          <strong>Archivo:</strong> ${plan.file_name ? plan.file_name : 'No hay archivo'}`;
+        if (plan.file_name) {
+          document.getElementById('downloadSection').style.display = 'block';
+          document.getElementById('downloadLink').setAttribute('href', 'http://localhost:5000/download/' + plan.id);
+        } else {
+          document.getElementById('downloadSection').style.display = 'none';
+        }
+      }
+    }
+
+    // Manejo del envío del formulario para agregar plan de prevención
+    document.getElementById('addPreventionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = document.getElementById('addPreventionForm');
+      const formData = new FormData(form);
+
+      fetch('http://localhost:5000/add_plan', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('addPreventionModal')).hide();
+          form.reset();
+          loadPlans(); // Refresca la tabla
+        } else {
+          alert(data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al agregar el plan.');
+      });
+    });
+
+    // Manejo del envío del formulario para agregar plan de corrección
+    document.getElementById('addCorrectionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = document.getElementById('addCorrectionForm');
+      const formData = new FormData(form);
+
+      fetch('http://localhost:5000/add_plan', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('addCorrectionModal')).hide();
+          form.reset();
+          loadPlans(); // Refresca la tabla
+        } else {
+          alert(data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al agregar el plan.');
+      });
+    });
+
+    // Carga los planes al iniciar la página
+    window.addEventListener('load', loadPlans);
+  </script>
 </body>
 </html>
