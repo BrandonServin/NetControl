@@ -58,22 +58,6 @@ def calculate_network_ip(ip_address, subnet_mask):
 
     network_parts = [ip_parts[i] & mask_parts[i] for i in range(4)]
     return ".".join(map(str, network_parts))
-"""
-def get_arp_table():
-    command = "arp -a"
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
-
-    if result.returncode != 0:
-        return []
-
-    devices = []
-    for line in result.stdout.split("\n"):
-        match = re.search(r"(\d+\.\d+\.\d+\.\d+)", line)
-        if match:
-            devices.append(match.group(1))
-
-    return devices
-    """
 
 def scan_network(network_ip, subnet_mask):
     try:

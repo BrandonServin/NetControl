@@ -1,209 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajustes</title>
-    <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
-    <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/stylesCSS/styleAjustes/styleAjustes.css">
-    <link rel="stylesheet" href="../assets/stylesCSS/font.css">
-    <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .config-box {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .config-box h2 {
-            margin-bottom: 20px;
-        }
-        .config-box .form-check {
-            margin-bottom: 10px;
-        }
-        .config-box .device-list {
-            margin-top: 20px;
-        }
-        .config-box .device-list .device-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajustes</title>
+  <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
+  <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/stylesCSS/styleAjustes/styleAjustes.css">
+  <link rel="stylesheet" href="../assets/stylesCSS/font.css">
+  <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .config-box {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .config-box h2 {
+      margin-bottom: 20px;
+    }
+    .config-box .form-check {
+      margin-bottom: 10px;
+    }
+    .config-box .device-list {
+      margin-top: 20px;
+    }
+    .config-box .device-list .device-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body class="dark-mode">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
-            <div class="container-fluid">
-                <div class="d-flex">
-                    <!-- Botón de pantalla pequeña -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
+      <div class="container-fluid">
+        <div class="d-flex">
+          <!-- Botón de pantalla pequeña -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-                    <!-- Logotipo y título -->
-                    <a class="navbar-brand d-flex align-items-center" href="inicio.html">
-                        <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
-                        <span class="title ms-2">NETControl</span>
-                    </a>
-                </div>
-
-                <!-- Menú -->
-                <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
-                    <ul class="navbar-nav colorTexto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="inicio.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Fallas.html">Fallas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link", href="Dispositivos.html">Dispositivos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Inventario.html">Inventario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link staticHover" href="Ajustes.html">Ajustes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Mantenimiento.html">Mantenimiento</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container animacion lineaSeparadora mainFont">
-        <div class="config-box mt-5">
-            <h2>Configuraciones de la red</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="ssid" class="form-label">Nombre de la red (SSID):</label>
-                    <input type="text" class="form-control" id="ssid" value="Nombre de la red" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña:</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" value="***************">
-                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">Mostrar</button>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Banda:</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="band24" disabled>
-                        <label class="form-check-label" for="band24">2.4 GHz</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="band5" disabled>
-                        <label class="form-check-label" for="band5">5 GHz</label>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Tipo de cifrado:</label>
-                    <select class="form-select" id="encryptionType" disabled>
-                        <option value="wpa2">WPA2</option>
-                        <option value="wpa3">WPA3</option>
-                    </select>
-                </div>
-            </form>
+          <!-- Logotipo y título -->
+          <a class="navbar-brand d-flex align-items-center" href="inicio.html">
+            <img src="../img/logo.png" alt="Logotipo" class="logo ms-2">
+            <span class="title ms-2">NETControl</span>
+          </a>
         </div>
 
-        <div class="config-box mt-5">
-            <h2>Estado de la red</h2>
-            <div id="network-status">
-                <p>Cargando estado de la red...</p>
-            </div>
+        <!-- Menú -->
+        <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
+          <ul class="navbar-nav colorTexto">
+            <li class="nav-item">
+              <a class="nav-link" href="inicio.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Fallas.html">Fallas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Dispositivos.html">Dispositivos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Inventario.html">Inventario</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link staticHover" href="Ajustes.html">Ajustes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Mantenimiento.html">Mantenimiento</a>
+            </li>
+          </ul>
         </div>
-    </main>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Código JavaScript -->
-    <script>
-        // Función para mostrar/ocultar la contraseña
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            const passwordField = document.getElementById('password');
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-            this.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
-        });
+  <main class="container animacion lineaSeparadora mainFont">
+    <div class="config-box mt-5">
+      <h2>Configuraciones de la red</h2>
+      <form>
+        <div class="mb-3">
+          <label for="ssid" class="form-label">Nombre de la red (SSID):</label>
+          <input type="text" class="form-control" id="ssid" value="Nombre de la red" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" value="***************">
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">Mostrar</button>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Banda:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="band24" disabled>
+            <label class="form-check-label" for="band24">2.4 GHz</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="band5" disabled>
+            <label class="form-check-label" for="band5">5 GHz</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo de cifrado:</label>
+          <select class="form-select" id="encryptionType" disabled>
+            <option value="wpa2">WPA2</option>
+            <option value="wpa3">WPA3</option>
+          </select>
+        </div>
+      </form>
+    </div>
 
-        // Obtener el SSID y la contraseña de la red
-        fetch('http://127.0.0.1:5000/get_wifi_info')  // Asegúrate de que esta URL sea correcta
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Datos recibidos del backend:", data); // Depuración
-                if (data.error) {
-                    console.error(data.error);
-                } else {
-                    // Actualizar el campo SSID
-                    document.getElementById('ssid').value = data.ssid;
+    <div class="config-box mt-5">
+      <h2>Estado de la red</h2>
+      <div id="network-status">
+        <p>Cargando estado de la red...</p>
+      </div>
+    </div>
+  </main>
 
-                    // Actualizar el campo de contraseña
-                    document.getElementById('password').value = data.password;
-                }
-            })
-            .catch(error => {
-                console.error('Error en la solicitud fetch:', error); // Depuración
-            });
+  <!-- Código JavaScript -->
+  <script>
+    // Función para mostrar/ocultar la contraseña
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('password');
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+      this.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
+    });
 
-        // Obtener el estado de la red
-        fetch('http://127.0.0.1:5000/network_status')  // Asegúrate de que esta URL sea correcta
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Estado de la red recibido del backend:", data); // Depuración
-                const networkStatusDiv = document.getElementById('network-status');
-                if (data.error) {
-                    networkStatusDiv.innerHTML = `<p>Error: ${data.error}</p>`;
-                } else {
-                    networkStatusDiv.innerHTML = `
-                        <p>Estado de la red: ${data.status}</p>
-                        <p>Velocidad de descarga: ${data.download_speed} Mbps</p>
-                        <p>Velocidad de subida: ${data.upload_speed} Mbps</p>
-                        <p>Latencia: ${data.latency} ms</p>
-                    `;
-                }
-            })
-            .catch(error => {
-                console.error('Error en la solicitud fetch:', error); // Depuración
-                document.getElementById('network-status').innerHTML = `<p>Error al obtener el estado de la red</p>`;
-            });
+    // Obtener la información de la red WiFi (SSID, contraseña, banda y cifrado)
+    fetch('http://127.0.0.1:5000/get_wifi_info')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Datos recibidos del backend:", data);
+        if (data.ssid) {
+          document.getElementById('ssid').value = data.ssid;
+        }
+        if (data.password) {
+          document.getElementById('password').value = data.password;
+        }
+        if (data.banda) {
+          document.getElementById('band24').checked = (data.banda === "2.4 GHz");
+          document.getElementById('band5').checked = (data.banda === "5 GHz");
+        }
+        if (data.cifrado) {
+          document.getElementById('encryptionType').value = data.cifrado.toLowerCase();
+        }
+      })
+      .catch(error => console.error('Error obteniendo la info de la red:', error));
 
-        // Simulación de la detección de la banda y el tipo de cifrado de la red conectada
-        window.onload = function() {
-            const ssid = document.getElementById('ssid').value;
-            const band24 = document.getElementById('band24');
-            const band5 = document.getElementById('band5');
-            const encryptionType = document.getElementById('encryptionType');
-
-            // Aquí puedes agregar la lógica para detectar la banda y el tipo de cifrado de la red conectada
-            // Por ejemplo, si la red es de 5 GHz, marcar la casilla correspondiente
-            if (ssid.includes('5G')) {
-                band5.checked = true;
-            } else {
-                band24.checked = true;
-            }
-
-            // Simulación del tipo de cifrado de la red conectada
-            // Puedes reemplazar esta lógica con la detección real del tipo de cifrado
-            const currentEncryption = 'wpa2'; // Ejemplo: 'wpa2' o 'wpa3'
-            encryptionType.value = currentEncryption;
-        };
-    </script>
+    // Obtener el estado de la red (este fetch permanece igual si tienes implementada la ruta correspondiente en el backend)
+    fetch('http://127.0.0.1:5000/network_status')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Estado de la red recibido del backend:", data);
+        const networkStatusDiv = document.getElementById('network-status');
+        if (data.error) {
+          networkStatusDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+        } else {
+          networkStatusDiv.innerHTML = `
+            <p>Estado de la red: ${data.status}</p>
+            <p>Velocidad de descarga: ${data.download_speed} Mbps</p>
+            <p>Velocidad de subida: ${data.upload_speed} Mbps</p>
+            <p>Latencia: ${data.latency} ms</p>
+          `;
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud fetch:', error);
+        document.getElementById('network-status').innerHTML = `<p>Error al obtener el estado de la red</p>`;
+      });
+  </script>
 </body>
 </html>
