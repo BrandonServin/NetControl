@@ -1,155 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dispositivos</title>
-        <link rel="stylesheet"
-            href="../assets/stylesCSS/styleHeader/styleHeader.css">
-        <link rel="stylesheet"
-            href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
-        <link rel="stylesheet"
-            href="../assets/stylesCSS/styleDispositivos/styleDispositivos.css">
-        <link rel="stylesheet" href="../assets/stylesCSS/font.css">
-        <script
-            src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
-    </head>
-    <body>
-        <header>
-            <nav
-                class="navbar navbar-expand-lg navbar-light search-elements-container">
-                <div class="container-fluid">
-                    <div class="d-flex">
-                        <!-- Botón de pantalla pequeña -->
-                        <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
 
-                        <!-- Logotipo y título -->
-                        <a class="navbar-brand d-flex align-items-center"
-                            href="inicio.html"> <img src="../img/logo.png"
-                                alt="Logotipo" class="logo ms-2">
-                            <span class="title ms-2">NETControl</span>
-                        </a>
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos</title>
+    <link rel="stylesheet" href="../assets/stylesCSS/styleHeader/styleHeader.css">
+    <link rel="stylesheet" href="../assets/bootstrap-5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/styleDispositivos/styleDispositivos.css">
+    <link rel="stylesheet" href="../assets/stylesCSS/font.css">
+    <script src="../assets/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+</head>
 
-                    <!-- Menú -->
-                    <div
-                        class="collapse navbar-collapse menu justify-content-lg-end"
-                        id="navbarNav">
-                        <ul class="navbar-nav colorTexto">
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="inicio.html">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Fallas.html">Fallas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link staticHover"
-                                    href="Dispositivos.html">Dispositivos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Inventario.html">Inventario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Ajustes.html">Ajustes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Mantenimiento.html">Mantenimiento</a>
-                            </li>
-                        </ul>
-                    </div>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
+            <div class="container-fluid">
+                <div class="d-flex">
+                    <!-- Botón de pantalla pequeña -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Logotipo y título -->
+                    <a class="navbar-brand d-flex align-items-center" href="inicio.html"> <img src="../img/logo.png"
+                            alt="Logotipo" class="logo ms-2">
+                        <span class="title ms-2">NETControl</span>
+                    </a>
                 </div>
-            </nav>
-        </header>
 
-        <main class="container animacion lineaSeparadora mainFont">
-            <div class="ms-auto justify-content-center text-center my-4">
-                <h1>Dispositivos</h1>
+                <!-- Menú -->
+                <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
+                    <ul class="navbar-nav colorTexto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="inicio.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Fallas.html">Fallas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link staticHover" href="Dispositivos.html">Dispositivos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Inventario.html">Inventario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Ajustes.html">Ajustes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Mantenimiento.html">Mantenimiento</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header>
 
-            <div class="container mt-4">
-                <table class="table table-striped table-bordered table-light" id="dispositivosTabla">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>IP</th>
-                            <th>MAC</th>
-                            <th>Estado</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PC-SALA</td>
-                            <td>192.168.1.2</td>
-                            <td>00:1A:2B:3C:4C</td>
-                            <td>Activo</td>
-                            <td><button
-                                    class="btn btn-primary btn-sm">Detalles</button></td>
-                        </tr>
-                        <tr>
-                            <td>Telefono-Miguel</td>
-                            <td>192.168.1.3</td>
-                            <td>00:1A:2B:5C:4C</td>
-                            <td>Activo</td>
-                            <td><button
-                                    class="btn btn-primary btn-sm">Detalles</button></td>
-                        </tr>
-                        <tr>
-                            <td>Impresora</td>
-                            <td>192.168.1.3</td>
-                            <td>00:1A:5B:3C:4C</td>
-                            <td>Inactivo</td>
-                            <td><button
-                                    class="btn btn-primary btn-sm">Detalles</button></tr>
-                        </tbody>
-                    </table>
+    <main class="container animacion lineaSeparadora mainFont">
+        <div class="ms-auto justify-content-center text-center my-4">
+            <h1>Dispositivos</h1>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row" id="dispositivosContainer">
+                <div class="col-md-3 mb-3 col-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Desconocido</h5>
+                            <p class="card-text"><strong>IP:</strong> 192.168.1.2</p>
+                            <p class="card-text"><strong>MAC:</strong> 00:1A:2B:3C:4C</p>
+                            <p class="card-text"><strong>Estado:</strong> <span class="text-success">Activo</span></p>
+                        </div>
+                    </div>
                 </div>
-            </main>
+                <div class="col-md-3 mb-3 col-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Desconocido</h5>
+                            <p class="card-text"><strong>IP:</strong> 192.168.1.3</p>
+                            <p class="card-text"><strong>MAC:</strong> 00:1A:2B:5C:4C</p>
+                            <p class="card-text"><strong>Estado:</strong> <span class="text-success">Activo</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 col-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Desconocido</h5>
+                            <p class="card-text"><strong>IP:</strong> 192.168.1.3</p>
+                            <p class="card-text"><strong>MAC:</strong> 00:1A:5B:3C:4C</p>
+                            <p class="card-text"><strong>Estado:</strong> <span class="text-danger">Inactivo</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 col-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Desconocido</h5>
+                            <p class="card-text"><strong>IP:</strong> 192.168.1.3</p>
+                            <p class="card-text"><strong>MAC:</strong> 00:4B:5A:2C:4C</p>
+                            <p class="card-text"><strong>Estado:</strong> <span class="text-danger">Inactivo</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-            <script>
-                async function fetchDevices() {
-                    try {
-                        const response = await fetch('http://127.0.0.1:5000/scan');
-                        const data = await response.json();
-                        
-                        if (data.error) {
-                            console.error('Error:', data.error);
-                            return;
-                        }
 
-                        const tbody = document.querySelector("#dispositivosTabla tbody");
-                        tbody.innerHTML = ""; 
-                        
-                        data.dispositivos.forEach(device => {
-                            const tr = document.createElement("tr");
-                            tr.innerHTML = `
-                                <td>${device.Nombre || 'Desconocido'}</td>
-                                <td>${device.Ip || 'N/A'}</td>
-                                <td>${device.Mac || 'N/A'}</td>
-                                <td>${device.Estado || 'N/A'}</td>
-                                <td><button
-                                    class="btn btn-primary btn-sm">Detalles</button></tr>
-                            `;
-                            tbody.appendChild(tr);
-                        });
-                    } catch (error) {
-                        console.error('Error al obtener los dispositivos:', error);
-                    }
+    <script>
+        async function fetchDevices() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/scan');
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('Error:', data.error);
+                    return;
                 }
-                document.addEventListener('DOMContentLoaded', fetchDevices);
-                fetchDevices();
-                setInterval(fetchDevices, 5000); // Actualizar cada 5 segundos
-            </script>
-        </body>
-    </html>
+
+                const container = document.querySelector("#dispositivosContainer");
+                container.innerHTML = ""; // Limpiar antes de agregar nuevos dispositivos
+
+                data.dispositivos.forEach(device => {
+                    const estadoColor = device.Estado === "Activo" ? "text-success" : "text-danger";
+
+                    const card = document.createElement("div");
+                    card.className = "col-md-3 mb-3 col-6";
+                    card.innerHTML = `
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">${device.Nombre || 'Desconocido'}</h5>
+                                    <p class="card-text"><strong>IP:</strong> ${device.Ip || 'N/A'}</p>
+                                    <p class="card-text"><strong>MAC:</strong> ${device.Mac || 'N/A'}</p>
+                                    <p class="card-text"><strong>Estado:</strong> <span class="${estadoColor}">${device.Estado || 'N/A'}</span></p>
+                                </div>
+                            </div>
+                        `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error al obtener los dispositivos:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchDevices);
+        setInterval(fetchDevices, 5000); // Actualizar cada 5 segundos
+    </script>
+</body>
+
+</html>
