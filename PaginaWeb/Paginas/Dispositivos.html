@@ -131,10 +131,11 @@
                     card.innerHTML = `
                             <div class="card shadow-sm">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">${device.Nombre || 'Desconocido'}</h5>
+                                    <h5 class="card-title">Desconocido</h5>
                                     <p class="card-text"><strong>IP:</strong> ${device.Ip || 'N/A'}</p>
                                     <p class="card-text"><strong>MAC:</strong> ${device.Mac || 'N/A'}</p>
-                                    <p class="card-text"><strong>Estado:</strong> <span class="${estadoColor}">${device.Estado || 'N/A'}</span></p>
+                                    <p class="card-text"><strong>Fabricante: :</strong> ${device.Fabricante || 'N/A'}</p>
+                                    <p class="card-text"><strong>Estado:</strong><span class="text-success">Activo</span></p>
                                 </div>
                             </div>
                         `;
