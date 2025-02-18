@@ -250,5 +250,11 @@ def iniciar_prueba():
 # - - - - - - - - - - - - Fin del Metodo - - - - - - - - - - - -
 
 
+# Cargar pagina 
+@app.route("/")  # <- Asegúrate de tener esta ruta
+def index():
+    return render_template("index.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
