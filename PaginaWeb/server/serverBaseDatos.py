@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
@@ -8,6 +8,7 @@ import socket
 import subprocess
 import re
 import requests
+from pyngrok import ngrok
 
 app = Flask(__name__)
 basedir = os.path.abspath(
@@ -282,13 +283,22 @@ def iniciar_prueba():
 
 
 # - - - - - - - - - - - - Fin del Metodo - - - - - - - - - - - -
-
-
+app = Flask(__name__, template_folder='.')
+@app.route("/")
+def home():
+    #return "¡Servidor Flask con ngrok funcionando!"
+    file_path = os.path.abspath(os.path.join(os.getcwd(), "../../index.html"))
+    return send_from_directory(os.path.dirname(file_path), os.path.basename(file_path))
 # Cargar pagina 
-@app.route("/")  # <- Asegúrate de tener esta ruta
-def index():
-    return render_template("index.html")
+#@app.route("/")  # <- Asegúrate de tener esta ruta
+#def index():
+ #   return render_template("index.html")
 
 
 if __name__ == "__main__":
+    public_url = ngrok.connect(5000)
+    print(f"Servidor público: {public_url}")
+
+    # Iniciar la aplicación Flask
+    app.run(port=5000)
     app.run(debug=True)
