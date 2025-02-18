@@ -128,8 +128,10 @@
                     <div class="card">
                         <div class="card-body text-center d-flex flex-column">
                             <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
-                            <p class="card-text" id="dispositivos-conectados">--- Conectados</p>
-                            <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                            <p class="card-text"
+                                id="dispositivos-conectados">--- Conectados</p>
+                            <a href="#"
+                                class="btn btn-color-card mt-auto">Detalles</a>
                         </div>
                     </div>
                 </div>
@@ -171,7 +173,6 @@
         }
 
         function actualizarDispositivosConectados() {
-<<<<<<< HEAD
             fetch('http://127.0.0.1:5000/scan')  // Cambia la URL para que coincida con la ruta de Flask
                 .then(response => response.json())
                 .then(data => {
