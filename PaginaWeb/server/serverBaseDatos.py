@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from NomRed import obtener_info_red
 import os
 import speedtest
 import nmap
@@ -246,7 +247,11 @@ def scan():
         return jsonify({"error": str(e)}), 500
 
 
-
+#Metodo para obtener detalles de la red
+@app.route('/get_wifi_info', methods=['GET'])
+def get_wifi_info():
+    """Ruta para obtener la información completa de la red WiFi."""
+    return jsonify(obtener_info_red())
 
 # - - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
 # Ruta para iniciar la prueba de speedtest
