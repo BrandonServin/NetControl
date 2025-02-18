@@ -7,6 +7,7 @@ import nmap
 import socket
 import subprocess
 import re
+import requests
 
 app = Flask(__name__)
 basedir = os.path.abspath(
@@ -155,6 +156,29 @@ def eliminar_inv(id):
     return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
 
 
+# - - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Login - - - - - - - - - - - -
+class Login(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    usuario = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    
+# Ruta para obtener todos los usuarios
+@app.route("/login", methods=["POST"])
+def iniciar_sesion():
+    data = request.json  # Obtener los datos enviados desde el frontend
+    usuario = data.get("usuario")
+    password = data.get("password")
+
+    # Buscar el usuario en la base de datos
+    user = Login.query.filter_by(usuario=usuario).first()
+
+    if user and user.password == password:
+        return jsonify({"success": True, "message": "Inicio de sesión exitoso"})
+    else:
+        return jsonify({"success": False, "message": "Usuario o contraseña incorrectos"}), 401
+
+
 #- - - - - - - - - - - - Metodos De MMap- - - - - - - - - - - -
 # Mostramos la cantidad de dispositivos conectados
 def get_local_ip():
@@ -170,6 +194,15 @@ def get_local_ip():
     return ip
 
     
+def get_vendor(mac_address):
+    # Usamos la API de macvendors.com para obtener el fabricante
+    url = f"https://api.macvendors.com/{mac_address}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.text
+    else:
+        return "Desconocido"
+
 @app.route('/scan')
 def scan():
     ip = get_local_ip()
@@ -190,13 +223,14 @@ def scan():
             if "Nmap scan report for" in line:
                 match = re.search(r'Nmap scan report for (.+)', line)
                 if match:
-                    device_info = {"Nombre": match.group(1), "Ip": match.group(1), "Mac": None, "Estado": "Up"}
+                    device_info = {"Nombre": match.group(0), "Ip": match.group(1), "Mac": None, "Estado": "Up", "Fabricante": None}
             elif "Host is up" in line:
                 pass  # Ya sabemos que el host está activo
             elif "MAC Address" in line:
                 match = re.search(r'MAC Address: ([0-9A-Fa-f:]+) \((.+)\)', line)
                 if match:
                     device_info["Mac"] = match.group(1)
+                    device_info["Fabricante"] = get_vendor(match.group(1))
 
             if "Nombre" in device_info and device_info["Nombre"] and device_info["Mac"]:
                 devices.append(device_info)
@@ -208,7 +242,7 @@ def scan():
             "dispositivos": devices
         })
     except Exception as e:
-        return jsonify({"error": str(e)}), 
+        return jsonify({"error": str(e)}), 500
 
 
 
