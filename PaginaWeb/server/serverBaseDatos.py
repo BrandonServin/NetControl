@@ -7,6 +7,7 @@ import nmap
 import socket
 import subprocess
 import re
+from flask import Flask, render_template
 
 app = Flask(__name__)
 basedir = os.path.abspath(
