@@ -53,52 +53,67 @@
         </main>
 
         <script>
-        document.getElementById("login").addEventListener("click", async function(event) {
-            event.preventDefault(); // Evita que la página se recargue
+            document.getElementById("login").addEventListener("click", async function(event) {
+                event.preventDefault(); // Evita que la página se recargue
         
-            const usuario = document.getElementById("usuario").value;
-            const password = document.getElementById("password").value;
-            const mensaje = document.getElementById("mensaje");
+                const usuario = document.getElementById("usuario").value;
+                const password = document.getElementById("password").value;
+                const mensaje = document.getElementById("mensaje");
         
-            if (!usuario || !password) {
-                mensaje.textContent = "Por favor, ingrese usuario y contraseña.";
-                mensaje.style.color = "red";
-                return;
-            }
+                if (!usuario || !password) {
+                    mensaje.textContent = "Por favor, ingrese usuario y contraseña.";
+                    mensaje.style.color = "red";
+                    return;
+                }
         
-            try {
-                const response = await fetch("http://127.0.0.1:5000/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ usuario, password })
-                });
+                // Detectar si estamos en local o producción
+                const API_URL = window.location.hostname === "localhost" 
+                    ? "http://127.0.0.1:5000"  // URL local
+                    : "https://netcontrol.onrender.com"; // Cambia esto por tu URL de Render
         
-                const data = await response.json();
+                try {
+                    const response = await fetch(`${API_URL}/login`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ usuario, password })
+                    });
         
-                if (response.ok) {
-                    mensaje.textContent = data.message;
-                    mensaje.style.color = "green";
-
-                    setTimeout(() => {
-                      const loginCard = document.querySelector(".card");
-                      loginCard.classList.add("shrink");
-
-                    setTimeout(() => {
-                    window.location.href = "inicio.html";
-                    }, 200);
-                }, 350);
-                } else {
-                    mensaje.textContent = data.message;
+                    const data = await response.json();
+        
+                    if (response.ok) {
+                        mensaje.textContent = data.message;
+                        mensaje.style.color = "green";
+        
+                        setTimeout(() => {
+                            const loginCard = document.querySelector(".card");
+                            loginCard.classList.add("shrink");
+        
+                            setTimeout(() => {
+                                window.location.href = "inicio.html";
+                            }, 200);
+                        }, 350);
+                    } else {
+                        mensaje.textContent = data.message;
+                        mensaje.style.color = "red";
+                    }
+                } catch (error) {
+                    console.error("Error en la autenticación:", error);
+                    mensaje.textContent = "Error al conectar con el servidor.";
                     mensaje.style.color = "red";
                 }
-            } catch (error) {
-                console.error("Error en la autenticación:", error);
-                mensaje.textContent = "Error al conectar con el servidor.";
-                mensaje.style.color = "red";
+            });
+
+
+            function animateAndRedirect() {
+                const loginCard = document.querySelector(".card");
+                loginCard.classList.add("shrink");
+            
+                setTimeout(() => {
+                    window.location.href = "inicio.html";
+                }, 200);
             }
-        });
         </script>
     </body>
 
