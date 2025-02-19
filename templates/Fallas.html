@@ -216,7 +216,7 @@
             fecha: formData.get("fecha")
         };
 
-        fetch("http://127.0.0.1:5000/reportes", {
+        fetch("/reportes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -234,7 +234,7 @@
 
     // Función para cargar los reportes en la tabla
     function cargarReportes() {
-        fetch("http://127.0.0.1:5000/reportes")  // URL de la ruta de reportes
+        fetch("/reportes")  // URL de la ruta de reportes
             .then(response => response.json())  // Convertir la respuesta a JSON
             .then(reportes => {
                 const tbody = document.querySelector("#tablaReportes tbody");
@@ -283,7 +283,7 @@
 
     // Función para actualizar el estado en la base de datos
     function actualizarEstado(id, nuevoEstado) {
-        fetch(`http://127.0.0.1:5000/reportes/${id}`, {
+        fetch(`/reportes/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ estado: nuevoEstado })

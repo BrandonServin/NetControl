@@ -134,7 +134,7 @@
     });
 
     // Obtener la información de la red WiFi (SSID, contraseña, banda y cifrado)
-    fetch('http://127.0.0.1:5000/get_wifi_info')
+    fetch('/get_wifi_info')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error en la solicitud: ' + response.statusText);
@@ -160,7 +160,7 @@
       .catch(error => console.error('Error obteniendo la info de la red:', error));
 
     // Obtener el estado de la red (este fetch permanece igual si tienes implementada la ruta correspondiente en el backend)
-    fetch('http://127.0.0.1:5000/network_status')
+    fetch('/network_status')
       .then(response => {
         if (!response.ok) {
           throw new Error('Error en la solicitud: ' + response.statusText);

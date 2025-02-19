@@ -190,7 +190,7 @@
 
     // Función para cargar los planes desde el servidor
     function loadPlans() {
-      fetch('http://localhost:5000/plans')
+      fetch('/plans')
         .then(response => response.json())
         .then(data => {
           plansData = data.plans;
@@ -264,7 +264,7 @@
       const form = document.getElementById('addPreventionForm');
       const formData = new FormData(form);
 
-      fetch('http://localhost:5000/add_plan', {
+      fetch('/add_plan', {
         method: 'POST',
         body: formData
       })
@@ -291,7 +291,7 @@
       const form = document.getElementById('addCorrectionForm');
       const formData = new FormData(form);
 
-      fetch('http://localhost:5000/add_plan', {
+      fetch('/add_plan', {
         method: 'POST',
         body: formData
       })

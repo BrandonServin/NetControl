@@ -249,7 +249,7 @@
             estado: formData.get("estado")
         };
 
-        fetch("http://127.0.0.1:5000/inventario", {
+        fetch("/inventario", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -267,7 +267,7 @@
 
     // - - - - - Función para cargar los reportes en la tabla - - - - -
     function cargarReportes() {
-        fetch("http://127.0.0.1:5000/inventario")  // URL de la ruta de reportes
+        fetch("/inventario")  // URL de la ruta de reportes
             .then(response => response.json())  // Convertir la respuesta a JSON
             .then(inventario => {
                 const tbody = document.querySelector("#tablaInventario tbody");
@@ -302,7 +302,7 @@
     function eliminarInventario(id) {
         if (!confirm("¿Estás seguro de que deseas eliminar este elemento?")) return;
 
-        fetch(`http://127.0.0.1:5000/inventario/${id}`, { method: 'DELETE' })
+        fetch(`/inventario/${id}`, { method: 'DELETE' })
             .then(response => response.json())
             .then(data => {
                 alert(data.mensaje);  // Mostrar mensaje de éxito o error

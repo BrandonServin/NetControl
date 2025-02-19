@@ -114,7 +114,7 @@
     <script>
         async function fetchDevices() {
             try {
-                const response = await fetch('http://127.0.0.1:5000/scan');
+                const response = await fetch('/scan');
                 const data = await response.json();
 
                 if (data.error) {

@@ -119,7 +119,7 @@
             document.getElementById('ping').textContent = '...';
 
             // Realiza la solicitud al servidor Flask
-            fetch('http://127.0.0.1:5000/iniciar_prueba?t=' + new Date().getTime())
+            fetch('/iniciar_prueba?t=' + new Date().getTime())
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la solicitud: ' + response.statusText);
@@ -146,7 +146,7 @@
         }
 
         function actualizarDispositivosConectados() {
-            fetch('http://127.0.0.1:5000/scan')  // Cambia la URL para que coincida con la ruta de Flask
+            fetch('/scan')  // Cambia la URL para que coincida con la ruta de Flask
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
