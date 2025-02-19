@@ -66,38 +66,15 @@
             <h1>Bienvenido a la página de Inicio</h1>
         </div>
 
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">ESTADO DE LA RED</h5>
-                            <p class="card-text text-success">ÓPTIMA</p>
-                            <a href="#"
-                                class="btn btn-color-card mt-auto">Detalles</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">MANTENIMIENTO</h5>
-                            <p class="card-text text-danger">5
-                                FALLAS/REPORTES</p>
-                            <a href="#"
-                                class="btn btn-color-card mt-auto">Detalles</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
-                            <p class="card-text"
-                                id="dispositivos-conectados">--- Conectados</p>
-                            <a href="Dispositivos.html"
-                                class="btn btn-color-card mt-auto">Detalles</a>
-                        </div>
+        <div class="row g-3 align-items-stretch">
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">ANCHO DE BANDA</h5>
+                        <p class="card-text">Velocidad de descarga: <span id="download">-</span> Mbps</p>
+                        <p class="card-text">Velocidad de subida: <span id="upload">-</span> Mbps</p>
+                        <p class="card-text">Ping: <span id="ping">-</span> ms</p>
+                        <button class="btn btn-primary mt-auto" onclick="iniciarPrueba()">Iniciar Prueba</button>
                     </div>
                 </div>
             </div>
@@ -107,7 +84,7 @@
                     <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-titulo">ESTADO DE LA RED</h5>
                         <p class="card-text text-success">ÓPTIMA</p>
-                        <a href="Ajustes.html" class="btn btn-color-card mt-auto">Detalles</a>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
                     </div>
                 </div>
             </div>
@@ -117,12 +94,22 @@
                     <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-titulo">MANTENIMIENTO</h5>
                         <p class="card-text text-danger">5 FALLAS/REPORTES</p>
-                        <a href="Mantenimiento.html" class="btn btn-color-card mt-auto">Detalles</a>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="producto4" class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
+                        <p class="card-text"><strong id="dispositivos-conectados">Espere...</strong></p>
+                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
                     </div>
                 </div>
             </div>
         </div>
-    </main> 
+    </main>
 
     <script>
         function iniciarPrueba() {

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from app.NomRed import obtener_info_red
@@ -14,7 +14,7 @@ app = Flask(__name__)
 basedir = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")
 )  # Obtener la ruta donde está el archivo server.py
-db_path = os.path.join(basedir, "app", "instance", "baseNetControl.db")
+db_path = os.path.join(basedir, "NetControl", "app", "instance", "baseNetControl.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"sqlite:///{db_path}"  # Ruta a la base de datos en la carpeta 'data'
 )
@@ -291,6 +291,30 @@ def iniciar_prueba():
 @app.route("/")  # <- Asegúrate de tener esta ruta
 def index():
     return render_template("index.html")
+
+@app.route("/inicio.html") 
+def inicio():
+    return render_template("inicio.html")
+
+@app.route("/Fallas.html") 
+def fallas():
+    return render_template("Fallas.html")
+
+@app.route("/Ajustes.html") 
+def ajustes():
+    return render_template("Ajustes.html")
+
+@app.route("/Dispositivos.html") 
+def dispositivos():
+    return render_template("Dispositivos.html")
+
+@app.route("/Inventario.html") 
+def inventario():
+    return render_template("Inventario.html")
+
+@app.route("/Mantenimiento.html") 
+def mantenimiento():
+    return render_template("Mantenimiento.html")
 
 
 if __name__ == "__main__":
