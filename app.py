@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from NomRed import obtener_info_red
+from app.NomRed import obtener_info_red
 import os
 import speedtest
 import nmap
@@ -9,13 +9,12 @@ import socket
 import subprocess
 import re
 import requests
-from pyngrok import ngrok
 
 app = Flask(__name__)
 basedir = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")
 )  # Obtener la ruta donde está el archivo server.py
-db_path = os.path.join(basedir, "assets", "python", "instance", "baseNetControl.db")
+db_path = os.path.join(basedir, "app", "instance", "baseNetControl.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"sqlite:///{db_path}"  # Ruta a la base de datos en la carpeta 'data'
 )
@@ -288,22 +287,11 @@ def iniciar_prueba():
 
 
 # - - - - - - - - - - - - Fin del Metodo - - - - - - - - - - - -
-app = Flask(__name__, template_folder='.')
-@app.route("/")
-def home():
-    #return "¡Servidor Flask con ngrok funcionando!"
-    file_path = os.path.abspath(os.path.join(os.getcwd(), "../../index.html"))
-    return send_from_directory(os.path.dirname(file_path), os.path.basename(file_path))
 # Cargar pagina 
-#@app.route("/")  # <- Asegúrate de tener esta ruta
-#def index():
- #   return render_template("index.html")
+@app.route("/")  # <- Asegúrate de tener esta ruta
+def index():
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
-    public_url = ngrok.connect(5000)
-    print(f"Servidor público: {public_url}")
-
-    # Iniciar la aplicación Flask
-    app.run(port=5000)
     app.run(debug=True)
