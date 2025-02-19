@@ -12,6 +12,10 @@ import requests
 
 app = Flask(__name__)
 
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 basedir = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")
 )  # Obtener la ruta donde está el archivo server.py
@@ -316,7 +320,3 @@ def inventario():
 @app.route("/Mantenimiento.html") 
 def mantenimiento():
     return render_template("Mantenimiento.html")
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
