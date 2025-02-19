@@ -10,7 +10,7 @@ import subprocess
 import re
 import requests
 
-application = Flask(__name__)
+app = Flask(__name__)
 
 basedir = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")
