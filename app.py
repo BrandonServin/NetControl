@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-# from app.NomRed import obtener_info_red
+from app.NomRed import obtener_info_red
 import os
 import speedtest
 import nmap
@@ -10,7 +10,7 @@ import subprocess
 import re
 import requests
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 basedir = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")
