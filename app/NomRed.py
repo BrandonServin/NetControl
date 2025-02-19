@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import subprocess
 
-app = Flask(__name__)
+app_NomRed = Flask(__name__)
 
 def obtener_contrasena(ssid):
     if not ssid:
