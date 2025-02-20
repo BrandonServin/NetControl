@@ -4,3 +4,4 @@ Flask-CORS
 speedtest-cli
 gunicorn
 requests
+python-nmap
