@@ -13,9 +13,9 @@ import requests
 app = Flask(__name__)
 
 basedir = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..")
+    os.path.join(os.path.dirname(__file__))
 )  # Obtener la ruta donde está el archivo server.py
-db_path = os.path.join(basedir, "NetControl", "app", "instance", "baseNetControl.db")
+db_path = os.path.join(basedir, "app", "instance", "baseNetControl.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"sqlite:///{db_path}"  # Ruta a la base de datos en la carpeta 'data'
 )
