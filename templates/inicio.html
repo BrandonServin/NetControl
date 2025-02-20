@@ -146,6 +146,17 @@
         }
 
         function actualizarDispositivosConectados() {
+            // Verificar si estamos en un entorno local
+            const esLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+            // Si estamos en producción, mostrar el mensaje y no hacer la petición
+            if (!esLocal) {
+                document.getElementById('dispositivos-conectados').textContent = 'Usa la aplicación local';
+                console.log("Entorno de producción: Usa la aplicación local");
+                return; // Evitar que se ejecute el código de la petición
+            }
+        
+            // Si estamos en local, hacer la petición
             fetch('/scan')  // Cambia la URL para que coincida con la ruta de Flask
                 .then(response => response.json())
                 .then(data => {
@@ -156,15 +167,14 @@
                         document.getElementById('dispositivos-conectados').textContent = 
                             `Dispositivos activos: ${data.dispositivos_conectados}`; 
                     }
-                    return response.json();
                 })
                 .then(data => {
                     let totalDevicesElement = document.getElementById("total_devices");
-
+        
                     if (!data || typeof data.total_devices === "undefined") {
                         throw new Error("Respuesta inesperada del servidor");
                     }
-
+        
                     // Actualizar solo el número total de dispositivos
                     totalDevicesElement.textContent = data.total_devices;
                 })
@@ -173,17 +183,12 @@
                     document.getElementById("total_devices").textContent = "Error";
                 });
         }
-
+        
         // Llamar a la función al cargar la página
         document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
-
+        
         // Actualizar cada 10 segundos
-        setInterval(actualizarDispositivosConectados, 10000);
-
-        // Llama a la función al cargar la página
-        document.addEventListener('DOMContentLoaded', actualizarDispositivosConectados);
-        // Actualiza el número de dispositivos conectados cada 10 segundos
-        setInterval(actualizarDispositivosConectados, 10000);
+        setInterval(actualizarDispositivosConectados, 10000);        
     </script>
 
 </body>
