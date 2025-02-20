@@ -5,3 +5,4 @@ speedtest-cli
 python-nmap
 gunicorn
 requests
+nmap
