@@ -43,9 +43,7 @@
                             <div>
                                 <p id="mensaje"></p>
                             </div>
-                            <button type="button" class="btn btn-primary mt-3"
-                                onclick="animateAndRedirect()"
-                                id="login">Login</button>
+                            <button type="button" class="btn btn-primary mt-3" id="login">Login</button>
                         </div>
                     </div>
                 </div>
@@ -55,22 +53,22 @@
         <script>
             document.getElementById("login").addEventListener("click", async function(event) {
                 event.preventDefault(); // Evita que la página se recargue
-        
+            
                 const usuario = document.getElementById("usuario").value;
                 const password = document.getElementById("password").value;
                 const mensaje = document.getElementById("mensaje");
-        
+            
                 if (!usuario || !password) {
                     mensaje.textContent = "Por favor, ingrese usuario y contraseña.";
                     mensaje.style.color = "red";
                     return;
                 }
-        
+            
                 // Detectar si estamos en local o producción
                 const API_URL = window.location.hostname === "localhost" 
                     ? "http://127.0.0.1:5000"  // URL local
                     : "https://netcontrol.onrender.com"; // Cambia esto por tu URL de Render
-        
+            
                 try {
                     const response = await fetch(`${API_URL}/login`, {
                         method: "POST",
@@ -79,21 +77,18 @@
                         },
                         body: JSON.stringify({ usuario, password })
                     });
-        
+            
                     const data = await response.json();
-        
+            
                     if (response.ok) {
                         mensaje.textContent = data.message;
                         mensaje.style.color = "green";
-        
+            
+                        // Esperar 500ms antes de comenzar la animación
                         setTimeout(() => {
-                            const loginCard = document.querySelector(".card");
-                            loginCard.classList.add("shrink");
-        
-                            setTimeout(() => {
-                                window.location.href = "inicio.html";
-                            }, 200);
-                        }, 350);
+                            animateAndRedirect();
+                        }, 500);
+            
                     } else {
                         mensaje.textContent = data.message;
                         mensaje.style.color = "red";
@@ -104,17 +99,21 @@
                     mensaje.style.color = "red";
                 }
             });
-
-
+            
             function animateAndRedirect() {
                 const loginCard = document.querySelector(".card");
-                loginCard.classList.add("shrink");
             
-                setTimeout(() => {
-                    window.location.href = "inicio.html";
-                }, 200);
+                if (loginCard) {
+                    loginCard.classList.add("shrink");
+            
+                    setTimeout(() => {
+                        window.location.href = "inicio.html";
+                    }, 350); // Duración de la animación antes de redirigir
+                } else {
+                    window.location.href = "inicio.html"; // En caso de que no exista la animación, redirige directamente
+                }
             }
-        </script>
+        </script>            
     </body>
 
 </html>

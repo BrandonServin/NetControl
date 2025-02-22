@@ -79,6 +79,7 @@
                         <th>Nombre</th>
                         <th>Modelo</th>
                         <th>No. Serie</th>
+                        <th>Cantidad</th>
                         <th>Ubicación</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -90,6 +91,7 @@
                         <td>Router</td>
                         <td>XYZ123</td>
                         <td>SN123456</td>
+                        <td>5</td>
                         <td>Sala de servidores</td>
                         <td>Activo</td>
                         <td>
@@ -102,6 +104,7 @@
                         <td>Switch</td>
                         <td>ABC456</td>
                         <td>SN789012</td>
+                        <td>5</td>
                         <td>Oficina principal</td>
                         <td>Inactivo</td>
                         <td>
@@ -114,6 +117,7 @@
                         <td>Access Point</td>
                         <td>DEF789</td>
                         <td>SN345678</td>
+                        <td>5</td>
                         <td>Pasillo</td>
                         <td>Activo</td>
                         <td>
@@ -143,6 +147,13 @@
 
                 <form class="contact-form col-md-12" id="send">
                     <div class="d-flex mt-2">
+                        <h3>Inventario Existente: </h3>
+                        <select name="inventarioExistente">
+                            <option value="seleccionar">Seleccionar</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex mt-2">
                         <h3>Nombre: </h3>
                         <input type="text" name="nombre" placeholder="Nombre">
                     </div>
@@ -155,6 +166,11 @@
                     <div class="d-flex mt-2 align-items-center">
                         <h3>No. Serie: </h3>
                         <input type="text" name="noSerie" placeholder="No. Serie">
+                    </div>
+
+                    <div class="d-flex mt-2 align-items-center">
+                        <h3>Cantidad: </h3>
+                        <input type="text" name="cantidad" placeholder="Cantidad">
                     </div>
 
                     <div class="d-flex mt-2">
@@ -245,6 +261,7 @@
             nombre: formData.get("nombre"),
             modelo: formData.get("modelo"),
             noSerie: formData.get("noSerie"),
+            cantidad: formData.get("cantidad"),
             ubicacion: formData.get("ubicacion"),
             estado: formData.get("estado")
         };
@@ -265,36 +282,89 @@
     });
     // - - - - - Fin de la funcion - - - - -
 
-    // - - - - - Función para cargar los reportes en la tabla - - - - -
-    function cargarReportes() {
-        fetch("/inventario")  // URL de la ruta de reportes
-            .then(response => response.json())  // Convertir la respuesta a JSON
-            .then(inventario => {
-                const tbody = document.querySelector("#tablaInventario tbody");
-                tbody.innerHTML = "";  // Limpiar la tabla antes de agregar nuevos datos
-
-                inventario.forEach(inv => {
-                    const tr = document.createElement("tr");
-
-                    tr.innerHTML = `
-                    <td>${inv.id}</td>
-                    <td>${inv.nombre}</td>
-                    <td>${inv.modelo}</td>
-                    <td> ${inv.noSerie}</td>
-                    <td>${inv.ubicacion}</td>
-                     <td>${inv.estado}</td>
-                    <td>
-                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
-                            <button class="btn btn-danger btn-sm" onclick="eliminarInventario(${inv.id})">Eliminar</button>
-                    </td>  
-                `;
-                    tbody.appendChild(tr);  // Agregar la fila a la tabla
-                });
-            })
-            .catch(error => console.error("Error al cargar los reportes:", error));
-    }
-
-    document.addEventListener("DOMContentLoaded", cargarReportes);
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectInventario = document.querySelector("select[name='inventarioExistente']");
+        const inputNombre = document.querySelector("input[name='nombre']");
+        const inputModelo = document.querySelector("input[name='modelo']");
+        const inputNoSerie = document.querySelector("input[name='noSerie']");
+        const inputCantidad = document.querySelector("input[name='cantidad']");
+        const inputUbicacion = document.querySelector("input[name='ubicacion']");
+        const selectEstado = document.querySelector("select[name='estado']");
+    
+        let inventarioData = []; // Variable para almacenar los datos del inventario
+    
+        // Cargar inventario y guardar los datos en la variable
+        function cargarReportes() {
+            fetch("/inventario")
+                .then(response => response.json())
+                .then(inventario => {
+                    inventarioData = inventario; // Guardar datos en la variable global
+    
+                    const tbody = document.querySelector("#tablaInventario tbody");
+                    tbody.innerHTML = "";
+                    selectInventario.innerHTML = '<option value="seleccionar">Seleccionar</option>';
+    
+                    inventario.forEach(inv => {
+                        // Agregar elementos a la tabla
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                            <td>${inv.id}</td>
+                            <td>${inv.nombre}</td>
+                            <td>${inv.modelo}</td>
+                            <td>${inv.noSerie}</td>
+                            <td>${inv.cantidad}</td>
+                            <td>${inv.ubicacion}</td>
+                            <td>${inv.estado}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
+                                <button class="btn btn-danger btn-sm" onclick="eliminarInventario(${inv.id})">Eliminar</button>
+                            </td>  
+                        `;
+                        tbody.appendChild(tr);
+    
+                        // Agregar opciones al select
+                        const option = document.createElement("option");
+                        option.value = inv.id;
+                        option.textContent = inv.nombre;
+                        selectInventario.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error al cargar los reportes:", error));
+        }
+    
+        // Evento para llenar los campos automáticamente al seleccionar un elemento
+        selectInventario.addEventListener("change", function () {
+            const selectedId = this.value;
+            
+            // Si selecciona "Seleccionar", limpiar los campos
+            if (selectedId === "seleccionar") {
+                inputNombre.value = "";
+                inputModelo.value = "";
+                inputNoSerie.value = "";
+                inputCantidad.value = "";
+                inputUbicacion.value = "";
+                selectEstado.value = "inactivo"; // Puedes cambiarlo según sea necesario
+                return;
+            }
+    
+            // Buscar el inventario seleccionado en los datos cargados
+            const selectedItem = inventarioData.find(inv => inv.id == selectedId);
+    
+            if (selectedItem) {
+                inputNombre.value = selectedItem.nombre;
+                inputModelo.value = selectedItem.modelo;
+                inputNoSerie.value = selectedItem.noSerie;
+                inputCantidad.value = selectedItem.cantidad;
+                inputUbicacion.value = selectedItem.ubicacion;
+                selectEstado.value = selectedItem.estado;
+            }
+        });
+    
+        // Cargar datos al iniciar la página
+        cargarReportes();
+    });
+    
+    
 
     // - - - - - Fin de la funcion - - - - -
 
@@ -331,8 +401,8 @@
             const nombre = fila.children[1].textContent.toLowerCase();
             const modelo = fila.children[2].textContent.toLowerCase();
             const noSerie = fila.children[3].textContent.toLowerCase();
-            const ubicacion = fila.children[4].textContent.toLowerCase();
-            const estado = fila.children[5].textContent.toLowerCase();
+            const ubicacion = fila.children[5].textContent.toLowerCase();
+            const estado = fila.children[6].textContent.toLowerCase();
 
             if (
                 id.includes(terminoBusqueda) ||

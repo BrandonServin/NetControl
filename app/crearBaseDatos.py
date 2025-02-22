@@ -24,11 +24,12 @@ class Inventario(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     modelo = db.Column(db.String(40), nullable=False)
     noSerie = db.Column(db.String(40), nullable=False)
+    cantidad = db.Column(db.String(40), nullable=False)
     ubicacion = db.Column(db.String(40), nullable=False)
     estado = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return f'Reporte({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.ubicacion}, {self.estado})'
+        return f'Reporte({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.cantidad}, {self.ubicacion}, {self.estado})'
     
 # Definir el modelo de la tabla login
 class Login(db.Model):
