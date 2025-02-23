@@ -18,18 +18,32 @@ class Reportes(db.Model):
     def __repr__(self):
         return f'Reporte({self.id}, {self.titulo}, {self.prioridad}, {self.estado}, {self.fecha})'
     
-# Definir el modelo de la tabla inventario
+# Definir el modelo de la tabla Inventario
 class Inventario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    modelo = db.Column(db.String(40), nullable=False)
-    noSerie = db.Column(db.String(40), nullable=False)
-    cantidad = db.Column(db.String(40), nullable=False)
-    ubicacion = db.Column(db.String(40), nullable=False)
-    estado = db.Column(db.String(20), nullable=False)
+    modelo = db.Column(db.String(100), nullable=False)
+    noSerie = db.Column(db.String(100), unique=True, nullable=False)
+    cantidadTotal = db.Column(db.Integer, nullable=False, default=0)
+    cantidadActiva = db.Column(db.Integer, nullable=False, default=0)
+    cantidadInventario = db.Column(db.Integer, nullable=False, default=0) 
+    ubicacion = db.Column(db.String(100), nullable=False) 
+    estado = db.Column(db.String(50), nullable=False) 
 
     def __repr__(self):
-        return f'Reporte({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.cantidad}, {self.ubicacion}, {self.estado})'
+        return f'Inventario({self.id}, {self.nombre}, {self.modelo}, {self.noSerie}, {self.cantidadTotal}, {self.cantidadActiva}, {self.cantidadInventario}, {self.ubicacion}, {self.estado})'
+
+
+# Definir la tabla para las unidades activas
+class UnidadActiva(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    inventario_id = db.Column(db.Integer, db.ForeignKey('inventario.id'), nullable=False)
+    ubicacion = db.Column(db.String(100), nullable=False) 
+    inventario = db.relationship('Inventario', backref=db.backref('unidades_activas', lazy=True))
+
+    def __repr__(self):
+        return f'UnidadActiva({self.id}, {self.inventario_id}, {self.ubicacion})'
+
     
 # Definir el modelo de la tabla login
 class Login(db.Model):

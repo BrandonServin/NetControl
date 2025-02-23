@@ -79,9 +79,9 @@
                         <th>Nombre</th>
                         <th>Modelo</th>
                         <th>No. Serie</th>
-                        <th>Cantidad</th>
-                        <th>Ubicación</th>
-                        <th>Estado</th>
+                        <th>C/Total</th>
+                        <th>C/Activa</th>
+                        <th>C/Inventario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -121,7 +121,7 @@
                         <td>Pasillo</td>
                         <td>Activo</td>
                         <td>
-                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
+                            <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Activar 1/U</button>
                             <button class="btn btn-danger btn-sm">Eliminar</button>
                         </td>
                     </tr>
@@ -146,12 +146,6 @@
                 <h2>Agrega tu inventario</h2>
 
                 <form class="contact-form col-md-12" id="send">
-                    <div class="d-flex mt-2">
-                        <h3>Inventario Existente: </h3>
-                        <select name="inventarioExistente">
-                            <option value="seleccionar">Seleccionar</option>
-                        </select>
-                    </div>
 
                     <div class="d-flex mt-2">
                         <h3>Nombre: </h3>
@@ -174,16 +168,10 @@
                     </div>
 
                     <div class="d-flex mt-2">
-                        <h3>Ubicación: </h3>
-                        <input type="text" name="ubicacion" placeholder="Ubicacion">
-                    </div>
-
-                    <div class="d-flex mt-2">
                         <h3>Estado: </h3>
                         <!-- <input type="text" name="estado" placeholder="Estado"> -->
                         <select name="estado">
                             <option value="inactivo">Inactivo</option>
-                            <option value="activo">Activo</option>
                         </select>
                     </div>
 
@@ -202,22 +190,42 @@
             <!-- Clase personalizada para mostrar la informacion-->
             <div class="modal-content">
                 <!-- Elemento para cerrar la ventana modal una x-->
-                <span class="close" onclick="cerrarModal('modal1')">&times;</span>
+                <span class="close" onclick="cerrarModal('modal2')">&times;</span>
 
                 <!-- Titulo maquetacion-->
-                <h2>Detalles</h2>
+                <h2>Activar dispositivo</h2>
 
                 <form class="contact-form col-md-12" id="send">
                     <div class="d-flex mt-2">
-                        <h3>Cantidad: </h3>
-                        <input type="text" name="nombre" placeholder="Nombre">
+                        <h3>Ubicacion: </h3>
+                        <input type="text" id="ubicacion" name="ubicacion" placeholder="Ubicacion">
                     </div>
 
                     <!-- Contenedor flexbox para alinear el botón de envío a la derecha -->
                     <div class="d-flex justify-content-end mt-1">
-                        <button type="submit" id="agregarBtn">Agregar</button>
+                        <button type="submit" id="agregarBtn" onclick="activarDispositivo()">Activar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div id="modal3" class="modal textForm">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal('modal3')">&times;</span>
+                <h2>Dispositivos Activos</h2>
+                <table class="table table-striped table-bordered table-light" id="tablaDisActivos">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Modelo</th>
+                            <th>No. Serie</th>
+                            <th>Ubicacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
@@ -231,11 +239,11 @@
         const nombre = document.querySelector("input[name='nombre']").value;
         const modelo = document.querySelector("input[name='modelo']").value;
         const noSerie = document.querySelector("input[name='noSerie']").value;
-        const ubicacion = document.querySelector("input[name='ubicacion']").value;
+        //const ubicacion = document.querySelector("input[name='ubicacion']").value;
 
         console.log("llego");
         const botonEnviar = document.getElementById("agregarBtn");
-        if (nombre.trim() !== "" && modelo.trim() !== "" && noSerie.trim() !== "" && ubicacion.trim() !== "") {
+        if (nombre.trim() !== "" && modelo.trim() !== "" && noSerie.trim() !== "") {
             botonEnviar.disabled = false;
         } else {
             botonEnviar.disabled = true;
@@ -262,7 +270,7 @@
             modelo: formData.get("modelo"),
             noSerie: formData.get("noSerie"),
             cantidad: formData.get("cantidad"),
-            ubicacion: formData.get("ubicacion"),
+            ubicacion: "Sin ubicacion",
             estado: formData.get("estado")
         };
 
@@ -282,89 +290,120 @@
     });
     // - - - - - Fin de la funcion - - - - -
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const selectInventario = document.querySelector("select[name='inventarioExistente']");
-        const inputNombre = document.querySelector("input[name='nombre']");
-        const inputModelo = document.querySelector("input[name='modelo']");
-        const inputNoSerie = document.querySelector("input[name='noSerie']");
-        const inputCantidad = document.querySelector("input[name='cantidad']");
-        const inputUbicacion = document.querySelector("input[name='ubicacion']");
-        const selectEstado = document.querySelector("select[name='estado']");
+
     
-        let inventarioData = []; // Variable para almacenar los datos del inventario
-    
-        // Cargar inventario y guardar los datos en la variable
-        function cargarReportes() {
-            fetch("/inventario")
-                .then(response => response.json())
-                .then(inventario => {
-                    inventarioData = inventario; // Guardar datos en la variable global
-    
-                    const tbody = document.querySelector("#tablaInventario tbody");
-                    tbody.innerHTML = "";
-                    selectInventario.innerHTML = '<option value="seleccionar">Seleccionar</option>';
-    
-                    inventario.forEach(inv => {
-                        // Agregar elementos a la tabla
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `
-                            <td>${inv.id}</td>
-                            <td>${inv.nombre}</td>
-                            <td>${inv.modelo}</td>
-                            <td>${inv.noSerie}</td>
-                            <td>${inv.cantidad}</td>
-                            <td>${inv.ubicacion}</td>
-                            <td>${inv.estado}</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm" onclick="abrirModal('modal2')">Detalles</button>
-                                <button class="btn btn-danger btn-sm" onclick="eliminarInventario(${inv.id})">Eliminar</button>
-                            </td>  
-                        `;
-                        tbody.appendChild(tr);
-    
-                        // Agregar opciones al select
-                        const option = document.createElement("option");
-                        option.value = inv.id;
-                        option.textContent = inv.nombre;
-                        selectInventario.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("Error al cargar los reportes:", error));
-        }
-    
-        // Evento para llenar los campos automáticamente al seleccionar un elemento
-        selectInventario.addEventListener("change", function () {
-            const selectedId = this.value;
-            
-            // Si selecciona "Seleccionar", limpiar los campos
-            if (selectedId === "seleccionar") {
-                inputNombre.value = "";
-                inputModelo.value = "";
-                inputNoSerie.value = "";
-                inputCantidad.value = "";
-                inputUbicacion.value = "";
-                selectEstado.value = "inactivo"; // Puedes cambiarlo según sea necesario
-                return;
-            }
-    
-            // Buscar el inventario seleccionado en los datos cargados
-            const selectedItem = inventarioData.find(inv => inv.id == selectedId);
-    
-            if (selectedItem) {
-                inputNombre.value = selectedItem.nombre;
-                inputModelo.value = selectedItem.modelo;
-                inputNoSerie.value = selectedItem.noSerie;
-                inputCantidad.value = selectedItem.cantidad;
-                inputUbicacion.value = selectedItem.ubicacion;
-                selectEstado.value = selectedItem.estado;
-            }
-        });
-    
-        // Cargar datos al iniciar la página
+  // Cargar inventario y guardar los datos en la variable
+  function abrirModalDisActivos(id) {
+    abrirModal('modal2');
+    dispositivoSeleccionado = id;
+}
+
+  function cargarReportes() {
+    fetch("/inventario")
+        .then(response => response.json())
+        .then(inventario => {
+            inventarioData = inventario; // Guardar datos en la variable global
+
+            const tbody = document.querySelector("#tablaInventario tbody");
+            tbody.innerHTML = "";
+
+            inventario.forEach(inv => {
+                // Agregar elementos a la tabla
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${inv.id}</td>
+                    <td>${inv.nombre}</td>
+                    <td>${inv.modelo}</td>
+                    <td>${inv.noSerie}</td>
+                    <td>${inv.cantidadTotal}</td>
+                    <td>${inv.cantidadActiva}</td>
+                    <td>${inv.cantidadInventario}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="abrirModalDisActivos(${inv.id})">Activar 1/U</button>
+                        <button class="btn btn-info btn-sm" onclick="verDispositivosActivos('${inv.modelo}')">Ver</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarInventario(${inv.id})">Eliminar</button>
+                    </td>  
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(error => console.error("Error al cargar los reportes:", error));
+}
+
+   // Llamar a la función al cargar la página
+   document.addEventListener("DOMContentLoaded", cargarReportes);
+
+
+// Función para activar un dispositivo
+let dispositivoSeleccionado = null;
+
+function activarDispositivo() {
+    const ubicacion = document.getElementById("ubicacion").value;
+
+    if (!dispositivoSeleccionado) {
+        alert("No se ha seleccionado ningún dispositivo.");
+        return;
+    }
+
+    if (!ubicacion) {
+        alert("Por favor, ingrese una ubicación.");
+        return;
+    }
+
+    const data = {
+        id: dispositivoSeleccionado,
+        ubicacion: ubicacion
+    };
+
+    fetch("/activar_dispositivo", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        alert(result.mensaje);
+        // Recargar los reportes para mostrar el dispositivo activado
         cargarReportes();
-    });
-    
-    
+        // Cerrar el modal o realizar alguna otra acción
+        document.getElementById("modal2").style.display = "none";
+        dispositivoSeleccionado = null; // Resetear la variable de dispositivo seleccionado
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+
+function verDispositivosActivos(modelo) {
+    fetch(`/dispositivos_activos/${modelo}`)
+        .then(response => response.json())
+        .then(dispositivos => {
+            const tbody = document.querySelector("#modal3 #tablaDisActivos tbody");
+            tbody.innerHTML = "";  // Limpiar la tabla antes de agregar los nuevos dispositivos
+
+            if (dispositivos.length > 0) {
+                dispositivos.forEach(d => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${d.nombre}</td>
+                        <td>${d.modelo}</td>
+                        <td>${d.noSerie}</td>
+                        <td>${d.ubicacion}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                // Abrir el modal
+                abrirModal('modal3');
+            } else {
+                alert(`No hay dispositivos activos para el modelo ${modelo}.`);
+            }
+        })
+        .catch(error => {
+            console.error("Error al obtener dispositivos activos:", error);
+        });
+}
 
     // - - - - - Fin de la funcion - - - - -
 
