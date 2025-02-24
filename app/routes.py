@@ -6,6 +6,7 @@ from app.models.nmap import scan_network
 from app.models.login import Login
 from app.models.inventario import Inventario, UnidadActiva
 from app.models.reportes import Reportes
+from app.NomRed import obtener_info_red
 
 main = Blueprint("main", __name__)
 
@@ -241,11 +242,29 @@ def actualizar_reporte(id):
         ),
         200,
     )
+    
+# ruta para obtener nombre y contraseña de la red
+
+#Metodo para obtener detalles de la red
+@main.route('/get_wifi_info', methods=['GET'])
+def get_wifi_info():
+    """Ruta para obtener la información completa de la red WiFi."""
+    return jsonify(obtener_info_red())
+
+
+@main.route("/numero_fallas", methods=["GET"])
+def numero_fallas():
+    try:
+        numero_fallas = Reportes.query.filter(Reportes.estado.notin_(["cancelado", "completado"])).count()
+        return jsonify({"numero_fallas": numero_fallas})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # - - - - - - - - - - - - Fin De Los Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
 
 # - - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
+
 # Ruta para iniciar la prueba de speedtest
 @main.route("/iniciar_prueba")
 def iniciar_prueba():
