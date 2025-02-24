@@ -93,8 +93,8 @@
                 <div class="card">
                     <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-titulo">MANTENIMIENTO</h5>
-                        <p class="card-text text-danger">5 FALLAS/REPORTES</p>
-                        <a href="#" class="btn btn-color-card mt-auto">Detalles</a>
+                        <p class="card-text text-danger" id="numero-fallas">Cargando...</p>
+                        <a href="Fallas.html" class="btn btn-color-card mt-auto">Detalles</a>
                     </div>
                 </div>
             </div>
@@ -189,6 +189,32 @@
         
         // Actualizar cada 10 segundos
         setInterval(actualizarDispositivosConectados, 10000);        
+    </script>
+
+    <script>
+        function obtenerNumeroFallas() {
+            fetch('/numero_fallas')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error del servidor:', data.error);
+                        document.getElementById('numero-fallas').textContent = 'Error';
+                    } else {
+                        document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('numero-fallas').textContent = 'Error';
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
     </script>
 
 </body>
