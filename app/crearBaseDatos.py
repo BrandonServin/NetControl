@@ -7,6 +7,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+# Modelo de la tabla Plans
+class Plans(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(50), nullable=False)
+    state = db.Column(db.String(50), nullable=False)
+    file_name = db.Column(db.String(255))
+    file_data = db.Column(db.LargeBinary)
+
+    def __repr__(self):
+        return f'Plans({self.id}, {self.name}, {self.type}, {self.state}, {self.file_name})'
+
+
 # Definir el modelo de la tabla Reporte
 class Reportes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
