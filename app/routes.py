@@ -255,6 +255,7 @@ def numero_fallas():
 # - - - - - - - - - - - - Fin De Los Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
 
 # - - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
+
 # Ruta para iniciar la prueba de speedtest
 @main.route("/iniciar_prueba")
 def iniciar_prueba():
