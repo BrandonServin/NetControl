@@ -191,31 +191,31 @@
         setInterval(actualizarDispositivosConectados, 10000);        
     </script>
 
-    <script>
-        function obtenerNumeroFallas() {
-            fetch('/numero_fallas')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la solicitud: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        console.error('Error del servidor:', data.error);
-                        document.getElementById('numero-fallas').textContent = 'Error';
-                    } else {
-                        document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+<script>
+    function obtenerNumeroFallas() {
+        fetch('/numero_fallas')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error('Error del servidor:', data.error);
                     document.getElementById('numero-fallas').textContent = 'Error';
-                });
-        }
+                } else {
+                    document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('numero-fallas').textContent = 'Error';
+            });
+    }
 
-        document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
-    </script>
+    document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
+</script>
 
 </body>
 

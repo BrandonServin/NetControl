@@ -246,7 +246,7 @@ def actualizar_reporte(id):
 @main.route("/numero_fallas", methods=["GET"])
 def numero_fallas():
     try:
-        numero_fallas = Reportes.query.count()
+        numero_fallas = Reportes.query.filter(Reportes.estado.notin_(["cancelado", "completado"])).count()
         return jsonify({"numero_fallas": numero_fallas})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
