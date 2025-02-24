@@ -150,8 +150,18 @@
           document.getElementById('password').value = data.password;
         }
         if (data.banda) {
-          document.getElementById('band24').checked = (data.banda === "2.4 GHz");
-          document.getElementById('band5').checked = (data.banda === "5 GHz");
+          // Normalizamos la cadena para comparar de forma robusta
+          const bandaStr = data.banda.trim().toLowerCase();
+          if (bandaStr.includes("2.4")) {
+            document.getElementById('band24').checked = true;
+            document.getElementById('band5').checked = false;
+          } else if (bandaStr.includes("5")) {
+            document.getElementById('band24').checked = false;
+            document.getElementById('band5').checked = true;
+          } else {
+            document.getElementById('band24').checked = false;
+            document.getElementById('band5').checked = false;
+          }
         }
         if (data.cifrado) {
           document.getElementById('encryptionType').value = data.cifrado.toLowerCase();
@@ -159,7 +169,7 @@
       })
       .catch(error => console.error('Error obteniendo la info de la red:', error));
 
-    // Obtener el estado de la red (este fetch permanece igual si tienes implementada la ruta correspondiente en el backend)
+    // Obtener el estado de la red (asegúrate de que la ruta exista en el backend)
     fetch('/network_status')
       .then(response => {
         if (!response.ok) {
