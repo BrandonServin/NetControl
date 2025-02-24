@@ -7,7 +7,7 @@ def obtener_contrasena(ssid):
     if not ssid:
         return None
     cmd = f'netsh wlan show profile name="{ssid}" key=clear'
-    resultado = subprocess.run(cmd, capture_output=True, text=True)
+    resultado = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
     password = None
     for linea in resultado.stdout.split("\n"):
         if "Contenido de la clave" in linea or "Key Content" in linea:
@@ -17,7 +17,7 @@ def obtener_contrasena(ssid):
 
 def obtener_info_red():
     cmd = "netsh wlan show interfaces"
-    resultado = subprocess.run(cmd, capture_output=True, text=True)
+    resultado = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
     
     ssid, banda, cifrado = None, None, None
 
