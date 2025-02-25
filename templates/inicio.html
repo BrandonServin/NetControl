@@ -172,7 +172,7 @@
         function obtenerURLBase() {
             if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
                 return "http://localhost:5000"; // URL del servidor Flask en local
-            } else {
+            } else {     
                 return "https://netcontrol.onrender.com"; // URL de producción con https://
             }
         }
@@ -180,6 +180,7 @@
         function actualizarDispositivosConectados() {
             const apiBase = obtenerURLBase();
             
+            if(apiBase.includes("localhost")){
             fetch(`${apiBase}/scan`)  // Usa la URL correcta según el entorno
                 .then(response => response.json())
                 .then(data => {
@@ -205,7 +206,12 @@
                     console.error("Error:", error);
                     document.getElementById("total_devices").textContent = "Error";
                 });
+        }else{
+            document.getElementById("dispositivos-conectados").textContent = "Utiliza la aplicacion local";
+            document.getElementById("total_devices").textContent = "";
         }
+    }
+        
 
 document.addEventListener("DOMContentLoaded", actualizarDispositivosConectados);
 setInterval(actualizarDispositivosConectados, 10000);
