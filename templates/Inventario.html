@@ -220,6 +220,7 @@
                             <th>Modelo</th>
                             <th>No. Serie</th>
                             <th>Ubicacion</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -392,6 +393,9 @@ function verDispositivosActivos(modelo) {
                         <td>${d.modelo}</td>
                         <td>${d.noSerie}</td>
                         <td>${d.ubicacion}</td>
+                        <td>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarDispositivo(${d.id})">Eliminar</button>
+                        </td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -405,6 +409,28 @@ function verDispositivosActivos(modelo) {
         .catch(error => {
             console.error("Error al obtener dispositivos activos:", error);
         });
+}
+
+// Función para eliminar dispositivo activo
+function eliminarDispositivo(id_dispositivo) {
+    if (confirm("¿Estás seguro de que deseas eliminar este dispositivo activo y devolverlo al inventario?")) {
+        fetch(`/eliminar_dispositivo/${id_dispositivo}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.mensaje);
+            // Recargar los dispositivos activos después de eliminar
+            cerrarModal('modal3');
+            cargarInventario();
+        })
+        .catch(error => {
+            console.error("Error al eliminar dispositivo:", error);
+        });
+    }
 }
 
     // - - - - - Fin de la funcion - - - - -

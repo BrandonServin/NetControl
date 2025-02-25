@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, jsonify
 from app.services.speedtest import realizar_speedtest
 from app.services.nmap import scan_network
 from app.services.login import iniciar_sesion
-from app.services.inventario import agregarInventario, obtenerInventario, eliminarInventario, activarDispositivo, obtDisActivos
+from app.services.inventario import agregarInventario, obtenerInventario, eliminarInventario, activarDispositivo, obtDisActivos, desactivarDispositivo
 from app.services.reportes import obtenerReportes, agregarReporte, actualizarReporte, eliminarReporte
 from app.services.NomRed import obtener_info_red
 from app.services.matenimiento import get_plans, add_plan, download_file
@@ -67,6 +67,10 @@ def activar_dispositivo():
 @main.route("/dispositivos_activos/<modelo>", methods=["GET"])
 def obtener_dispositivos_activos(modelo):
     return obtDisActivos(modelo)
+
+@main.route("/eliminar_dispositivo/<int:id>", methods=["DELETE"])
+def eliminar_disActivo(id):
+    return desactivarDispositivo(id)
 
 
 # - - - - - - - - - - - - Rutas De Fallas/Reportes - - - - - - - - - - - -

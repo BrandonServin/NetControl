@@ -55,9 +55,14 @@ def eliminarInventario(id):
     inventario = Inventario.query.get(id)
     if not inventario:
         return jsonify({"mensaje": "Elemento no encontrado"}), 404
+    
+    # Eliminar las unidades activas asociadas
+    UnidadActiva.query.filter_by(inventario_id=id).delete()
 
+    # Eliminar el inventario
     db.session.delete(inventario)
     db.session.commit()
+    
     return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
 
 def activarDispositivo(data):
@@ -79,6 +84,27 @@ def activarDispositivo(data):
     db.session.commit()
 
     return jsonify({"mensaje": "Dispositivo activado correctamente."}), 200
+
+def desactivarDispositivo(id_dispositivo):
+    # Buscar la unidad activa
+    unidad_activa = UnidadActiva.query.get(id_dispositivo)
+    if not unidad_activa:
+        return jsonify({"mensaje": "Error: Dispositivo activo no encontrado."}), 404
+    
+    # Buscar el inventario relacionado
+    dispositivo = Inventario.query.get(unidad_activa.inventario_id)
+    if not dispositivo:
+        return jsonify({"mensaje": "Error: Dispositivo no encontrado en el inventario."}), 404
+
+    # Eliminar la unidad activa de la base de datos
+    db.session.delete(unidad_activa)
+
+    # Devolver el dispositivo al inventario
+    dispositivo.cantidadActiva -= 1
+    dispositivo.cantidadInventario += 1
+    db.session.commit()
+
+    return jsonify({"mensaje": "Dispositivo eliminado y regresado al inventario correctamente."}), 200
 
 def obtDisActivos(modelo):
     dispositivos_activos = (
