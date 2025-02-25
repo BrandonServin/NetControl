@@ -170,73 +170,71 @@
         }
 
         function obtenerURLBase() {
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-        return "http://localhost:5000"; // URL del servidor Flask en local
-    } else {
-        return "netcontrol.onrender.com"; // URL de producción
-    }
-}
-
-function actualizarDispositivosConectados() {
-    const apiBase = obtenerURLBase();
-    
-    fetch(`${apiBase}/scan`)  // Usa la URL correcta según el entorno
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error("Error del servidor:", data.error);
-                document.getElementById("dispositivos-conectados").textContent = "Error: " + data.error;
+            if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+                return "http://localhost:5000"; // URL del servidor Flask en local
             } else {
-                document.getElementById("dispositivos-conectados").textContent = 
-                    `Dispositivos activos: ${data.dispositivos_conectados}`;
+                return "https://netcontrol.onrender.com"; // URL de producción con https://
             }
-        })
-        .then(data => {
-            let totalDevicesElement = document.getElementById("total_devices");
-
-            if (!data || typeof data.total_devices === "undefined") {
-                throw new Error("Respuesta inesperada del servidor");
-            }
-
-            totalDevicesElement.textContent = data.total_devices;
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            document.getElementById("total_devices").textContent = "Error";
-        });
-}
+        }
+        
+        function actualizarDispositivosConectados() {
+            const apiBase = obtenerURLBase();
+            
+            fetch(`${apiBase}/scan`)  // Usa la URL correcta según el entorno
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error("Error del servidor:", data.error);
+                        document.getElementById("dispositivos-conectados").textContent = "Error: " + data.error;
+                        document.getElementById("total_devices").textContent = "Error";
+                        return;
+                    }
+        
+                    document.getElementById("dispositivos-conectados").textContent = 
+                        `Dispositivos activos: ${data.dispositivos_conectados}`;
+        
+                    let totalDevicesElement = document.getElementById("total_devices");
+        
+                    if (typeof data.total_devices === "undefined") {
+                        throw new Error("Respuesta inesperada del servidor");
+                    }
+        
+                    totalDevicesElement.textContent = data.total_devices;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("total_devices").textContent = "Error";
+                });
+        }
 
 document.addEventListener("DOMContentLoaded", actualizarDispositivosConectados);
 setInterval(actualizarDispositivosConectados, 10000);
 
-    </script>
-
-        <script>
-    function obtenerNumeroFallas() {
-        fetch('/numero_fallas')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error('Error del servidor:', data.error);
-                    document.getElementById('numero-fallas').textContent = 'Error';
-                } else {
-                    document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
+function obtenerNumeroFallas() {
+    fetch('/numero_fallas')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error('Error del servidor:', data.error);
                 document.getElementById('numero-fallas').textContent = 'Error';
-            });
-    }
+            } else {
+                document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('numero-fallas').textContent = 'Error';
+        });
+}
 
-    document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
-</script>
+document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
 
+    </script>
     </body>
 
 </html>
