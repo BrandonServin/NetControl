@@ -6,6 +6,7 @@ from app.services.inventario import agregarInventario, obtenerInventario, elimin
 from app.services.reportes import obtenerReportes, agregarReporte, actualizarReporte, eliminarReporte
 from app.services.NomRed import obtener_info_red
 from app.services.matenimiento import get_plans, add_plan, download_file
+from app.models.reportes import Reportes
 
 main = Blueprint("main", __name__)
 
@@ -41,7 +42,7 @@ def mantenimiento():
 # - - - - - - - - - - - - Ruta Para El Inicio De Sesión - - - - - - - - - - - -
 # Ruta para obtener todos los usuarios
 @main.route("/login", methods=["POST"])
-def iniciar_sesion():
+def login():
     data = request.json  # Obtener los datos enviados desde el frontend
     return iniciar_sesion(data)
 

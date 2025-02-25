@@ -1,4 +1,4 @@
-import app.services.speedtest as speedtest
+import speedtest
 
 def realizar_speedtest():
     """Ejecuta una prueba de velocidad de internet con Speedtest."""

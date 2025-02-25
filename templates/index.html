@@ -63,14 +63,9 @@
                     mensaje.style.color = "red";
                     return;
                 }
-            
-                // Detectar si estamos en local o producción
-                const API_URL = window.location.hostname === "localhost" 
-                    ? "http://127.0.0.1:5000"  // URL local
-                    : "https://netcontrol.onrender.com"; // Cambia esto por tu URL de Render
-            
+
                 try {
-                    const response = await fetch(`${API_URL}/login`, {
+                    const response = await fetch(`/login`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
