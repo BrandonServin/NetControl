@@ -1,141 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menú NETControl</title>
-        <link rel="stylesheet" href="../static/css/styleInicio/styleInicio.css">
-        <link rel="stylesheet" href="../static/css/styleHeader/styleHeader.css">
-        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../static/css/font.css">
-        <script src="../static/js/bootstrap.bundle.min.js"></script>
-        <script src="../static/js/animCargar.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú NETControl</title>
+    <!-- Enlaces a hojas de estilo -->
+    <link rel="stylesheet" href="../static/css/styleInicio/styleInicio.css">
+    <link rel="stylesheet" href="../static/css/styleHeader/styleHeader.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/font.css">
+    <!-- Scripts de JavaScript -->
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/animCargar.js"></script>
+</head>
 
-    <body>
+<body>
 
-        <header>
-            <nav
-                class="navbar navbar-expand-lg navbar-light search-elements-container">
-                <div class="container-fluid">
-                    <div class="d-flex">
-                        <!-- Botón de pantalla pequeña -->
-                        <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light search-elements-container">
+            <div class="container-fluid">
+                <div class="d-flex">
+                    <!-- Botón de pantalla pequeña -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                        <!-- Logotipo y título -->
-                        <a class="navbar-brand d-flex align-items-center"
-                            href="inicio.html">
-                            <img src="../static/img/logo.png" alt="Logotipo"
-                                class="logo ms-2">
-                            <span class="title ms-2">NETControl</span>
-                        </a>
-                    </div>
-
-                    <!-- Menú -->
-                    <div
-                        class="collapse navbar-collapse menu justify-content-lg-end"
-                        id="navbarNav">
-                        <ul class="navbar-nav colorTexto">
-                            <li class="nav-item">
-                                <a class="nav-link staticHover"
-                                    href="inicio.html">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Fallas.html">Fallas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Dispositivos.html">Dispositivos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Inventario.html">Inventario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Ajustes.html">Ajustes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="Mantenimiento.html">Mantenimiento</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- Logotipo y título -->
+                    <a class="navbar-brand d-flex align-items-center" href="inicio.html">
+                        <img src="../static/img/logo.png" alt="Logotipo" class="logo ms-2">
+                        <span class="title ms-2">NETControl</span>
+                    </a>
                 </div>
-            </nav>
-        </header>
 
-        <!-- Contenedor principal con una clase personalizada para animación -->
-        <main class="container animacion lineaSeparadora mainFont">
-            <div class="ms-auto justify-content-center text-center my-4">
-                <h1>Bienvenido a la página de Inicio</h1>
+                <!-- Menú -->
+                <div class="collapse navbar-collapse menu justify-content-lg-end" id="navbarNav">
+                    <ul class="navbar-nav colorTexto">
+                        <li class="nav-item">
+                            <a class="nav-link staticHover" href="inicio.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Fallas.html">Fallas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Dispositivos.html">Dispositivos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Inventario.html">Inventario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Ajustes.html">Ajustes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Mantenimiento.html">Mantenimiento</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header>
 
-            <div class="row g-3 align-items-stretch">
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">ANCHO DE BANDA</h5>
-                            <p class="card-text">Velocidad de descarga: <span
-                                    id="download">-</span> Mbps</p>
-                            <p class="card-text">Velocidad de subida: <span
-                                    id="upload">-</span> Mbps</p>
-                            <p class="card-text">Ping: <span id="ping">-</span>
-                                ms</p>
-                            <button class="btn btn-primary mt-auto"
-                                onclick="iniciarPrueba()">Iniciar
-                                Prueba</button>
-                        </div>
-                    </div>
-                </div>
+    <!-- Contenedor principal con una clase personalizada para animación -->
+    <main class="container animacion lineaSeparadora mainFont">
+        <div class="ms-auto justify-content-center text-center my-4">
+            <h1>Bienvenido a la página de Inicio</h1>
+        </div>
 
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">ESTADO DE LA RED</h5>
-                            <p class="card-text text-success">ÓPTIMA</p>
-                            <a href="Ajustes.html"
-                                class="btn btn-color-card mt-auto">Detalles</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">MANTENIMIENTO</h5>
-                            <p class="card-text text-danger"
-                                id="numero-fallas">Cargando...</p>
-                            <a href="Fallas.html"
-                                class="btn btn-color-card mt-auto">Detalles</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="producto4"
-                    class="col-md-6 col-6 d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
-                            <p class="card-text"><strong
-                                    id="dispositivos-conectados">Espere...</strong></p>
-                            <a href="Dispositivos.html"
-                                class="btn btn-color-card mt-auto">Detalles</a>
-                        </div>
+        <div class="row g-3 align-items-stretch">
+            <!-- Tarjeta de ancho de banda -->
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">ANCHO DE BANDA</h5>
+                        <p class="card-text">Velocidad de descarga: <span id="download">-</span> Mbps</p>
+                        <p class="card-text">Velocidad de subida: <span id="upload">-</span> Mbps</p>
+                        <p class="card-text">Ping: <span id="ping">-</span> ms</p>
+                        <button class="btn btn-primary mt-auto" onclick="iniciarPrueba()">Iniciar Prueba</button>
                     </div>
                 </div>
             </div>
-        </main>
 
-        <script>
+            <!-- Tarjeta de estado de la red -->
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">ESTADO DE LA RED</h5>
+                        <p class="card-text text-success">ÓPTIMA</p>
+                        <a href="Ajustes.html" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de mantenimiento -->
+            <div class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">MANTENIMIENTO</h5>
+                        <p class="card-text text-danger" id="numero-fallas">Cargando...</p>
+                        <a href="Fallas.html" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de dispositivos conectados -->
+            <div id="producto4" class="col-md-6 col-6 d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-titulo">DISPOSITIVOS CONECTADOS</h5>
+                        <p class="card-text"><strong id="dispositivos-conectados">Espere...</strong></p>
+                        <a href="Dispositivos.html" class="btn btn-color-card mt-auto">Detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Función para iniciar la prueba de ancho de banda
         function iniciarPrueba() {
             // Limpia los resultados anteriores
             document.getElementById('download').textContent = '...';
@@ -169,6 +150,7 @@
                 });
         }
 
+        // Función para obtener la URL base según el entorno
         function obtenerURLBase() {
             if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
                 return "http://localhost:5000"; // URL del servidor Flask en local
@@ -177,6 +159,7 @@
             }
         }
         
+        // Función para actualizar el número de dispositivos conectados
         function actualizarDispositivosConectados() {
             const apiBase = obtenerURLBase();
             
@@ -213,34 +196,37 @@
     }
         
 
-document.addEventListener("DOMContentLoaded", actualizarDispositivosConectados);
-setInterval(actualizarDispositivosConectados, 10000);
+        // Ejecuta la función de actualización de dispositivos conectados al cargar la página
+        document.addEventListener("DOMContentLoaded", actualizarDispositivosConectados);
+        // Actualiza el número de dispositivos conectados cada 10 segundos
+        setInterval(actualizarDispositivosConectados, 10000);
 
-function obtenerNumeroFallas() {
-    fetch('/numero_fallas')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                console.error('Error del servidor:', data.error);
-                document.getElementById('numero-fallas').textContent = 'Error';
-            } else {
-                document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('numero-fallas').textContent = 'Error';
-        });
-}
+        // Función para obtener el número de fallas
+        function obtenerNumeroFallas() {
+            fetch('/numero_fallas')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error del servidor:', data.error);
+                        document.getElementById('numero-fallas').textContent = 'Error';
+                    } else {
+                        document.getElementById('numero-fallas').textContent = `${data.numero_fallas} FALLAS/REPORTES`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('numero-fallas').textContent = 'Error';
+                });
+        }
 
-document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
-
+        // Ejecuta la función de obtener el número de fallas al cargar la página
+        document.addEventListener('DOMContentLoaded', obtenerNumeroFallas);
     </script>
-    </body>
+</body>
 
 </html>
