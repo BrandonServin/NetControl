@@ -1,16 +1,15 @@
 from flask import Blueprint, render_template, request, jsonify
-from app.models.database import db
-from sqlalchemy.exc import IntegrityError
-from app.models.speedtest import realizar_speedtest
-from app.models.nmap import scan_network
-from app.models.login import Login
-from app.models.inventario import Inventario, UnidadActiva
-from app.models.reportes import Reportes
-from app.NomRed import obtener_info_red
+from app.services.speedtest import realizar_speedtest
+from app.services.nmap import scan_network
+from app.services.login import iniciar_sesion
+from app.services.inventario import agregarInventario, obtenerInventario, eliminarInventario, activarDispositivo, obtDisActivos
+from app.services.reportes import obtenerReportes, agregarReporte, actualizarReporte, eliminarReporte
+from app.services.NomRed import obtener_info_red
+from app.services.matenimiento import get_plans, add_plan, download_file
 
 main = Blueprint("main", __name__)
 
-# Cargar página principal
+# - - - - - - - - - - - - Rutas de las paginas principales - - - - - - - - - - - -
 @main.route("/")  
 def index():
     return render_template("index.html")
@@ -39,219 +38,63 @@ def inventario():
 def mantenimiento():
     return render_template("Mantenimiento.html")
 
+# - - - - - - - - - - - - Ruta Para El Inicio De Sesión - - - - - - - - - - - -
 # Ruta para obtener todos los usuarios
 @main.route("/login", methods=["POST"])
 def iniciar_sesion():
     data = request.json  # Obtener los datos enviados desde el frontend
-    usuario = data.get("usuario")
-    password = data.get("password")
-
-    # Buscar el usuario en la base de datos
-    user = Login.query.filter_by(usuario=usuario).first()
-
-    if user and user.password == password:
-        return jsonify({"success": True, "message": "Inicio de sesión exitoso"})
-    else:
-        return jsonify({"success": False, "message": "Usuario o contraseña incorrectos"}), 401
+    return iniciar_sesion(data)
 
 
-# - - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Inventario - - - - - - - - - - - -
-# Ruta para agregar un nuevo inventario
+# - - - - - - - - - - - - Rutas De Inventario - - - - - - - - - - - -
 @main.route("/inventario", methods=["POST"])
 def agregar_inv():
     data = request.json
+    return agregarInventario(data)
 
-    # Verificar si el modelo o el número de serie ya existen
-    existente = Inventario.query.filter(
-        (Inventario.modelo == data["modelo"]) | (Inventario.noSerie == data["noSerie"])
-    ).first()
-
-    if existente:
-        return jsonify({"mensaje": "Error: Modelo o número de serie ya existen"}), 400
-
-    try:
-        nuevo_inv = Inventario(
-            nombre=data["nombre"],
-            modelo=data["modelo"],
-            noSerie=data["noSerie"],
-            cantidadTotal=data["cantidad"],
-            cantidadActiva=0,
-            cantidadInventario=data["cantidad"],
-            ubicacion=data["ubicacion"],
-            estado=data["estado"],
-        )
-
-        # Agregar el nuevo dispositivo a la base de datos
-        db.session.add(nuevo_inv)
-        db.session.commit()
-
-        # Responder con un mensaje de éxito
-        return jsonify({"mensaje": "Inventario agregado correctamente"}), 201
-    except IntegrityError:
-        # Manejar cualquier error de base de datos, como violación de restricciones
-        db.session.rollback()
-        return jsonify({"mensaje": "Error al guardar el inventario"}), 500
-    
-
-# Ruta para obtener todos los reportes
 @main.route("/inventario", methods=["GET"])
 def obtener_inv():
-    reportes = Inventario.query.all()
-    return jsonify(
-        [
-            {
-                "id": r.id,
-                "nombre": r.nombre,
-                "modelo": r.modelo,
-                "noSerie": r.noSerie,
-                "cantidadTotal": r.cantidadTotal,
-                "cantidadActiva": r.cantidadActiva,
-                "cantidadInventario": r.cantidadInventario,
-                "ubicacion": r.ubicacion,
-                "estado": r.estado,
-            }
-            for r in reportes
-        ]
-    )
+    return obtenerInventario()
 
-
-# Ruta para eliminar un inventario por su ID
 @main.route("/inventario/<int:id>", methods=["DELETE"])
 def eliminar_inv(id):
-    inventario = Inventario.query.get(id)
-    if not inventario:
-        return jsonify({"mensaje": "Elemento no encontrado"}), 404
+    return eliminarInventario(id)
 
-    db.session.delete(inventario)
-    db.session.commit()
-    return jsonify({"mensaje": "Elemento eliminado correctamente"}), 200
-
-# Activar dispositivo y registrar ubicación
 @main.route("/activar_dispositivo", methods=["POST"])
 def activar_dispositivo():
-    data = request.json
-    id_dispositivo = data["id"]
-    ubicacion = data["ubicacion"]
-
-    dispositivo = Inventario.query.get(id_dispositivo)
-
-    if not dispositivo:
-        return jsonify({"mensaje": "Error: Dispositivo no encontrado."}), 404
-
-    # Verificar si aún hay unidades disponibles para activar
-    if dispositivo.cantidadInventario <= 0:
-        return jsonify({"mensaje": "Error: No hay unidades disponibles en inventario."}), 400
-
-    # Crear una nueva entrada en UnidadActiva en lugar de modificar el Inventario
-    nueva_unidad = UnidadActiva(inventario_id=dispositivo.id, ubicacion=ubicacion)
-    db.session.add(nueva_unidad)
-
-    # Actualizar los conteos en Inventario
-    dispositivo.cantidadActiva += 1
-    dispositivo.cantidadInventario -= 1
-
-    db.session.commit()
-
-    return jsonify({"mensaje": "Dispositivo activado correctamente."}), 200
-
-
+    return activarDispositivo(request.json)
 
 @main.route("/dispositivos_activos/<modelo>", methods=["GET"])
 def obtener_dispositivos_activos(modelo):
-    dispositivos_activos = (
-        UnidadActiva.query
-        .join(Inventario, Inventario.id == UnidadActiva.inventario_id)
-        .filter(Inventario.modelo == modelo)
-        .all()
-    )
-
-    if not dispositivos_activos:
-        return jsonify({"mensaje": "No se encontraron dispositivos activos para este modelo."}), 404
-
-    # Retornar los dispositivos activos con su información
-    return jsonify([
-        {
-            "id": ua.id,
-            "nombre": ua.inventario.nombre,
-            "modelo": ua.inventario.modelo,
-            "noSerie": ua.inventario.noSerie,
-            "ubicacion": ua.ubicacion  # La ubicación de la unidad activa
-        }
-        for ua in dispositivos_activos
-    ])
+    return obtDisActivos(modelo)
 
 
-
-# - - - - - - - - - - - - Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
-# Ruta para obtener todos los reportes
+# - - - - - - - - - - - - Rutas De Fallas/Reportes - - - - - - - - - - - -
 @main.route("/reportes", methods=["GET"])
 def obtener_reportes():
-    reportes = Reportes.query.all()
-    return jsonify(
-        [
-            {
-                "id": r.id,
-                "titulo": r.titulo,
-                "prioridad": r.prioridad,
-                "estado": r.estado,
-                "fecha": r.fecha,
-            }
-            for r in reportes
-        ]
-    )
+    return obtenerReportes()
 
-
-# Ruta para agregar un nuevo reporte
 @main.route("/reportes", methods=["POST"])
 def agregar_reporte():
-    data = request.json
-    nuevo_reporte = Reportes(
-        titulo=data["titulo"],
-        prioridad=data["prioridad"],
-        estado=data["estado"],
-        fecha=data["fecha"],
-    )
-    db.session.add(nuevo_reporte)
-    db.session.commit()
-    return jsonify({"mensaje": "Reporte agregado correctamente"}), 201
+    return agregarReporte(request.json)
 
-
-# Ruta para actualizar el estado
 @main.route("/reportes/<int:id>", methods=["PUT"])
 def actualizar_reporte(id):
-    data = request.json
-    nuevo_estado = data.get("estado")
+    return actualizarReporte(id, request.json)
 
-    if not nuevo_estado:
-        return jsonify({"error": "Estado requerido"}), 400
+@main.route("/reportes/<int:id>", methods=["DELETE"])
+def eliminar_reporte(id):
+    return eliminarReporte(id)
 
-    reporte = Reportes.query.get(id)
 
-    if reporte is None:
-        return jsonify({"error": "Reporte no encontrado"}), 404
-
-    reporte.estado = nuevo_estado
-    db.session.commit()
-
-    return (
-        jsonify(
-            {
-                "message": "Estado actualizado correctamente",
-                "nuevo_estado": nuevo_estado,
-            }
-        ),
-        200,
-    )
-    
-# ruta para obtener nombre y contraseña de la red
-
-#Metodo para obtener detalles de la red
+# - - - - - - - - - - - - Rutas De Informacion Del Wifi - - - - - - - - - - - -
 @main.route('/get_wifi_info', methods=['GET'])
 def get_wifi_info():
     """Ruta para obtener la información completa de la red WiFi."""
     return jsonify(obtener_info_red())
 
 
+# - - - - - - - - - - - - Rutas Para Cargas Las Fallas - - - - - - - - - - - -
 @main.route("/numero_fallas", methods=["GET"])
 def numero_fallas():
     try:
@@ -261,11 +104,7 @@ def numero_fallas():
         return jsonify({"error": str(e)}), 500
 
 
-# - - - - - - - - - - - - Fin De Los Metodos De La Tabla Para El Apartado De Fallas - - - - - - - - - - - -
-
-# - - - - - - - - - - - - Metodo para hacer la prueba - - - - - - - - - - - -
-
-# Ruta para iniciar la prueba de speedtest
+# - - - - - - - - - - - - Ruta para hacer la prueba de speedtest - - - - - - - - - - - -
 @main.route("/iniciar_prueba")
 def iniciar_prueba():
     resultado = realizar_speedtest()
@@ -275,7 +114,7 @@ def iniciar_prueba():
     
     return jsonify(resultado)
 
-# - - - - - - - - - - - - Metodo para hacer el NMAP - - - - - - - - - - - -
+# - - - - - - - - - - - - Rutas para el escaneo de dispositivos - - - - - - - - - - - -
 @main.route('/scan')
 def scan():
     resultado = scan_network()
@@ -285,7 +124,20 @@ def scan():
     
     return jsonify(resultado)
 
-# Ruta para evitar el error de favicon
+# - - - - - - - - - - - - Rutas Para Evitar El Error De Favicon - - - - - - - - - - - -
 @main.route('/favicon.ico')
 def favicon():
     return '', 204
+
+# - - - - - - - - - - - - Rutas Para El Apartado De Planes- - - - - - - - - - - -
+@main.route('/plans', methods=['GET'])
+def get_plans_main():
+    return get_plans()
+
+@main.route('/add_plan', methods=['POST'])
+def add_plan_main():
+    return add_plan(request)
+
+@main.route('/download/<int:plan_id>', methods=['GET'])
+def download_main(plan_id):
+    return download_file(plan_id)

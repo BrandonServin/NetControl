@@ -228,6 +228,7 @@
                 alert(result.mensaje);
                 event.target.reset();
                 cargarReportes();
+                cerrarModal('modal1');
             })
             .catch(error => console.error("Error:", error));
     });
@@ -250,8 +251,10 @@
                     <td>${reporte.prioridad}</td>
                     <td class="estado-${reporte.id}">${reporte.estado}</td>
                     <td>${reporte.fecha}</td>
-                    <td><button class="btn btn-primary btn-sm" onclick="avanzarEstado(${reporte.id}, '${reporte.estado}')">Avanzar</button>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="avanzarEstado(${reporte.id}, '${reporte.estado}')">Avanzar</button>
                         <button class="btn btn-danger btn-sm" onclick="cancelarEstado(${reporte.id})">Cancelar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarReporte(${reporte.id})">Eliminar</button>
                     </td>
                     
                 `;
@@ -342,6 +345,19 @@
         });
     }
     // Fin del apartado
+
+        // - - - - - Funcion para eliminar datos - - - - -
+        function eliminarReporte(id) {
+            if (!confirm("¿Estás seguro de que deseas eliminar este elemento?")) return;
+    
+            fetch(`/reportes/${id}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.mensaje);  // Mostrar mensaje de éxito o error
+                    cargarReportes();  // Recargar la tabla para reflejar los cambios
+                })
+                .catch(error => console.error("Error al eliminar el elemento:", error));
+        }
 
 
 </script>

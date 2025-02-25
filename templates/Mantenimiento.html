@@ -251,7 +251,7 @@
           <strong>Archivo:</strong> ${plan.file_name ? plan.file_name : 'No hay archivo'}`;
         if (plan.file_name) {
           document.getElementById('downloadSection').style.display = 'block';
-          document.getElementById('downloadLink').setAttribute('href', 'http://localhost:5000/download/' + plan.id);
+          document.getElementById('downloadLink').setAttribute('href', '/download/' + plan.id);
         } else {
           document.getElementById('downloadSection').style.display = 'none';
         }
@@ -271,14 +271,19 @@
       .then(response => response.json())
       .then(data => {
         if (data.message) {
-          alert(data.message);
-          bootstrap.Modal.getInstance(document.getElementById('addPreventionModal')).hide();
-          form.reset();
-          loadPlans(); // Refresca la tabla
+            alert(data.message);
+            const modal = document.getElementById('addPreventionModal');
+            const bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) {
+                bsModal.hide();
+            }
+            modal.setAttribute('aria-hidden', 'false'); // Elimina el aria-hidden después de cerrar
+            form.reset();
+            loadPlans();
         } else {
-          alert(data.error);
+            alert(data.error);
         }
-      })
+    })
       .catch(error => {
         console.error('Error:', error);
         alert('Error al agregar el plan.');
@@ -298,14 +303,19 @@
       .then(response => response.json())
       .then(data => {
         if (data.message) {
-          alert(data.message);
-          bootstrap.Modal.getInstance(document.getElementById('addCorrectionModal')).hide();
-          form.reset();
-          loadPlans(); // Refresca la tabla
+            alert(data.message);
+            const modal = document.getElementById('addPreventionModal');
+            const bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) {
+                bsModal.hide();
+            }
+            modal.setAttribute('aria-hidden', 'false'); // Elimina el aria-hidden después de cerrar
+            form.reset();
+            loadPlans();
         } else {
-          alert(data.error);
+            alert(data.error);
         }
-      })
+    })
       .catch(error => {
         console.error('Error:', error);
         alert('Error al agregar el plan.');

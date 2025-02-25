@@ -285,6 +285,8 @@
             .then(result => {
                 alert(result.mensaje);
                 event.target.reset();
+                cargarInventario();
+                cerrarModal('modal1');
             })
             .catch(error => console.error("Error:", error));
     });
@@ -298,7 +300,7 @@
     dispositivoSeleccionado = id;
 }
 
-  function cargarReportes() {
+  function cargarInventario() {
     fetch("/inventario")
         .then(response => response.json())
         .then(inventario => {
@@ -331,7 +333,7 @@
 }
 
    // Llamar a la función al cargar la página
-   document.addEventListener("DOMContentLoaded", cargarReportes);
+   document.addEventListener("DOMContentLoaded", cargarInventario);
 
 
 // Función para activar un dispositivo
@@ -366,7 +368,7 @@ function activarDispositivo() {
     .then(result => {
         alert(result.mensaje);
         // Recargar los reportes para mostrar el dispositivo activado
-        cargarReportes();
+        cargarInventario();
         // Cerrar el modal o realizar alguna otra acción
         document.getElementById("modal2").style.display = "none";
         dispositivoSeleccionado = null; // Resetear la variable de dispositivo seleccionado
@@ -415,7 +417,7 @@ function verDispositivosActivos(modelo) {
             .then(response => response.json())
             .then(data => {
                 alert(data.mensaje);  // Mostrar mensaje de éxito o error
-                cargarReportes();  // Recargar la tabla para reflejar los cambios
+                cargarInventario();  // Recargar la tabla para reflejar los cambios
             })
             .catch(error => console.error("Error al eliminar el elemento:", error));
     }
