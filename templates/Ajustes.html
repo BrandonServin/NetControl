@@ -105,13 +105,6 @@
             <label class="form-check-label" for="band5">5 GHz</label>
           </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Tipo de cifrado:</label>
-          <select class="form-select" id="encryptionType" disabled>
-            <option value="wpa2">WPA2</option>
-            <option value="wpa3">WPA3</option>
-          </select>
-        </div>
       </form>
     </div>
 
@@ -162,9 +155,6 @@
             document.getElementById('band24').checked = false;
             document.getElementById('band5').checked = false;
           }
-        }
-        if (data.cifrado) {
-          document.getElementById('encryptionType').value = data.cifrado.toLowerCase();
         }
       })
       .catch(error => console.error('Error obteniendo la info de la red:', error));
