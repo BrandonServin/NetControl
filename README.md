@@ -7,7 +7,7 @@ en el cual se pueden generar planes de prevencion y planes de correcion, un apar
 Documentacion:
 
 [Manual de usuario](https://github.com/BrandonServin/NetControl/blob/6e1595ade5f84e36228b38f2edaafbf09b301986/Manual%20de%20Usuario.docx)
-Manual Tecnico: https://github.com/BrandonServin/NetControl/blob/6e1595ade5f84e36228b38f2edaafbf09b301986/Manual%20Tecnico.docx
+[Manual Tecnico](https://github.com/BrandonServin/NetControl/blob/6e1595ade5f84e36228b38f2edaafbf09b301986/Manual%20Tecnico.docx)
 
 ![image](https://github.com/user-attachments/assets/f40ec481-aa61-4163-8d9d-3298b2e3ae9d)
 
