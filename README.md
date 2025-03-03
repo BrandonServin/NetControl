@@ -1,6 +1,6 @@
-#NETControl
+# NETControl
 
-##Descripcion
+## Descripcion
 NETControl es una herramienta de monitoreo de redes, en la cual se puede conocer la velocidad de la red, los dispositivos conectados a la red
 junto a su IP y direccion mac, ademas de poder generar reportes de fallas, llevar un control de inventario de los dispositivos de red, un apartado de mantenimiento 
 en el cual se pueden generar planes de prevencion y planes de correcion, un apartado de ajustes en el cual te muestra el nombre de tu red, tu contraseña y ancho de banda.
